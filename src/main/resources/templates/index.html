@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>WittyServer</title>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"> 
+	<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+</head>
+<body>
+	<div id="colorFormDiv">
+      <form id="colorForm" method="get">
+        <input id="colorBox" type="color" value="%COLOR_STRING%" name="color">
+        <input id="colorSubmit" type="submit">
+      </form>
+    </div>
+    <div id="effectFormDiv">
+      <table id="effectFormDiv">
+        <tr>
+          <form id="effectForm" method="get">
+            <td><button class="effectSubmit" type="submit" name="effect" value="rainbowCycle">RainbowCycle</button></td>
+            <td><button class="effectSubmit" type="submit" name="effect" value="theaterChase">! Theater chase !</button></td>
+            <td><button class="effectSubmit" type="submit" name="effect" value="rainbow">! Rainbow !</button></td>
+            <td><button class="effectSubmit" type="submit" name="effect" value="theaterChaseRainbow">! Theater chase rainbow !</button></td>
+          </form>
+        </tr>
+      </table>
+    </div>
+</body>
+</html>
