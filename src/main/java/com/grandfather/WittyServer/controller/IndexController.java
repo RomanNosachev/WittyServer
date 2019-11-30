@@ -1,7 +1,5 @@
 package com.grandfather.WittyServer.controller;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -14,15 +12,11 @@ import com.grandfather.WittyServer.broker.BrokerLauncher;
 @Controller
 public class IndexController 
 {
+	BrokerLauncher launcher;
+	
 	@RequestMapping(value = {"/"}, method = RequestMethod.GET)
 	public String showIndexPage(Model model, HttpSession session)
 	{
-		try {
-			new BrokerLauncher().start();
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
-		}
-		
 		return "index";
 	}
 }
