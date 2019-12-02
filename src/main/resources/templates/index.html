@@ -8,20 +8,23 @@
 </head>
 <body>
 	<div id="colorFormDiv">
-      <form id="colorForm" method="get">
-        <input id="colorBox" type="color" value="%COLOR_STRING%" name="color">
+      <form th:action="@{/}" id="colorForm" method="post" th:object="${lightConfig}">
+        <input id="colorBox" type="color" value="color" th:field="*{colorString}" name="color">
         <input id="colorSubmit" type="submit">
       </form>
     </div>
     <div id="effectFormDiv">
       <table id="effectFormDiv">
         <tr>
-          <form id="effectForm" method="get">
-            <td><button class="effectSubmit" type="submit" name="effect" value="rainbowCycle">RainbowCycle</button></td>
-            <td><button class="effectSubmit" type="submit" name="effect" value="theaterChase">! Theater chase !</button></td>
-            <td><button class="effectSubmit" type="submit" name="effect" value="rainbow">! Rainbow !</button></td>
-            <td><button class="effectSubmit" type="submit" name="effect" value="theaterChaseRainbow">! Theater chase rainbow !</button></td>
-          </form>
+          <form th:action="@{/}" id="effectForm" method="post" th:object="${lightConfig}">
+          	<td>
+	          	<ul>
+	          		<li><p><input name="effect" type="radio" value="rainbowCycle" th:field="*{effectString}" checked></p>Rainbow</li>
+	          		<li><p><input name="effect" type="radio" value="police" th:field="*{effectString}">Police</p></li>
+	          	</ul>
+	        </td>
+            <td><button class="effectSubmit" type="submit">Start</button></td>
+          </form> 
         </tr>
       </table>
     </div>

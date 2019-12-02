@@ -7,6 +7,10 @@ import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
+import com.grandfather.WittyServer.AudioDriver;
+
 import io.moquette.broker.Server;
 import io.moquette.broker.config.ClasspathResourceLoader;
 import io.moquette.broker.config.IConfig;
@@ -26,22 +30,25 @@ import io.netty.handler.codec.mqtt.MqttQoS;
 /**
  * Simple example of how to embed the broker in another project
  * */
+@Component
 public final class BrokerLauncher 
 implements Runnable
 {
 	IResourceLoader classpathLoader = new ClasspathResourceLoader();
     final IConfig classPathConfig = new ResourceLoaderConfig(classpathLoader);
-
+    
     final Server mqttBroker = new Server();
     List<? extends InterceptHandler> userHandlers = Collections.singletonList(new PublisherListener());
 	
+    static AudioDriver audioDriver = new AudioDriver();
+    
     static class PublisherListener extends AbstractInterceptHandler 
     {
 
         @Override
         public String getID() 
         {
-            return "EmbeddedLauncherPublishListener";
+            return "BrokerLauncher";
         }
 
         @Override
@@ -51,6 +58,12 @@ implements Runnable
         	
             final String decodedPayload = new String(ByteBufUtil.getBytes(payload), Charset.forName("UTF-8"));
             System.out.println("Received on topic: " + msg.getTopicName() + " content: " + decodedPayload);
+            
+            if (msg.getTopicName().equals("light/effect"))
+            {                           	
+            	audioDriver.setAudioPattern(decodedPayload);
+            	new Thread(audioDriver).start();
+            }
         }
 
 		@Override
@@ -71,6 +84,7 @@ implements Runnable
 		}
 
         System.out.println("Broker started press [CTRL+C] to stop");
+        
         //Bind  a shutdown hook
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             System.out.println("Stopping broker");
