@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.grandfather.WittyServer.AudioDriver;
+import com.grandfather.WittyServer.audio.AudioDriver;
 
 import io.moquette.broker.Server;
 import io.moquette.broker.config.ClasspathResourceLoader;
