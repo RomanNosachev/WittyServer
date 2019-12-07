@@ -27,10 +27,6 @@ import io.netty.handler.codec.mqtt.MqttMessageBuilders;
 import io.netty.handler.codec.mqtt.MqttPublishMessage;
 import io.netty.handler.codec.mqtt.MqttQoS;
 
-/**
- * Simple example of how to embed the broker in another project
- * */
-@Component
 public final class BrokerLauncher 
 implements Runnable
 {
@@ -74,6 +70,26 @@ implements Runnable
 		}
     }
 
+    public void publish(String topic, String payload, String clientId)
+    {
+    	System.out.println("Publish: " + topic);
+    	
+    	MqttPublishMessage message = MqttMessageBuilders.publish()
+                .topicName(topic)
+                .retained(true)
+                .qos(MqttQoS.EXACTLY_ONCE)
+                .payload(Unpooled.copiedBuffer(payload.getBytes(UTF_8)))
+                .build();
+    	
+    	mqttBroker.internalPublish(message, clientId);
+    	
+    	if (topic.equals("light/effect"))
+        {                           	
+    		audioDriver.setAudioPattern(payload);
+            new Thread(audioDriver).start();
+        }
+    }
+    
 	@Override
 	public void run() 
 	{

@@ -1,0 +1,12 @@
+#JSGF V1.0;
+
+grammar dialog;
+
+<effect> = police | rainbow;
+
+<menu_command> = [play | call] <effect> | 
+[hi | hello | okay] home |
+exit;
+
+public <command> = <menu_command>
+;

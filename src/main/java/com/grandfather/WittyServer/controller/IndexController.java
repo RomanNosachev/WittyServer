@@ -1,31 +1,19 @@
 package com.grandfather.WittyServer.controller;
 
-import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.grandfather.WittyServer.broker.BrokerLauncher;
 import com.grandfather.WittyServer.entity.LightConfig;
 
-@Component
 @Controller
 @RequestMapping({"/", "index"})
 public class IndexController 
-{
-	private Runnable launcher = new BrokerLauncher();
-	
-	@PostConstruct
-	public void startBroker()
-	{
-		new Thread(launcher).start();
-	}
-	
+{	
 	@RequestMapping(value = {"/"}, method = RequestMethod.GET)
 	public String showIndexPage(Model model, @ModelAttribute("lightConfig") LightConfig config, HttpSession session)
 	{		
