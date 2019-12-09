@@ -81,7 +81,10 @@ implements Runnable
                 .payload(Unpooled.copiedBuffer(payload.getBytes(UTF_8)))
                 .build();
     	
-    	mqttBroker.internalPublish(message, clientId);
+    	try {
+    		mqttBroker.internalPublish(message, clientId);
+    	}
+    	catch (NullPointerException e) {}
     	
     	if (topic.equals("light/effect"))
         {                           	

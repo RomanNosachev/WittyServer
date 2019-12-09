@@ -2,11 +2,12 @@
 
 grammar dialog;
 
+<greeting> = [ok | hi | hello] shodan;
+
 <effect> = police | rainbow;
 
 <menu_command> = [play | call] <effect> | 
-[hi | hello | okay] home |
+system shock |
 exit;
 
-public <command> = <menu_command>
-;
+public <command> = <greeting> <menu_command>;

@@ -12,13 +12,13 @@ public class ComponentStarter
 implements InitializingBean
 {
 	private BrokerLauncher brokerLauncher = new BrokerLauncher();
-	//private RecognitionDriver recognitionDriver = new RecognitionDriver(SphinxConfigurator.getConfig(), brokerLauncher);
+	private RecognitionDriver recognitionDriver = new RecognitionDriver(SphinxConfigurator.getConfig(), brokerLauncher);
 
 	@Override
 	public void afterPropertiesSet() throws Exception 
 	{
 		new Thread(brokerLauncher).start();
 		
-		//recognitionDriver.handleVoiceCommand();
+		new Thread(recognitionDriver).start();
 	}
 }

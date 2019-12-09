@@ -8,13 +8,15 @@ import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.LiveSpeechRecognizer;
 
 public class RecognitionDriver 
+implements Runnable
 {
-	private static Configuration configuration;
+	private Configuration configuration;
 	
 	private LiveSpeechRecognizer jsgfRecognizer;
 	
 	private BrokerLauncher broker;
 	
+	/*
 	private static final String ACOUSTIC_MODEL =
 	        "resource:/edu/cmu/sphinx/models/en-us/en-us";
 	    private static final String DICTIONARY_PATH =
@@ -23,11 +25,14 @@ public class RecognitionDriver
 	        "resource:/grammars/";
 	    private static final String LANGUAGE_MODEL =
 	        "resource:/models/russian/weather.lm";
+	*/
 	
 	public RecognitionDriver(Configuration config, BrokerLauncher broker)
 	{
-		//configuration = config;
+		this.configuration = config;
+		this.broker = broker;
 		
+		/*
 		configuration = new Configuration();
         configuration.setAcousticModelPath(ACOUSTIC_MODEL);
         configuration.setDictionaryPath(DICTIONARY_PATH);
@@ -99,6 +104,61 @@ public class RecognitionDriver
                 
                 jsgfRecognizer.startRecognition(true);
             }
+        }
+
+        jsgfRecognizer.stopRecognition();
+	}
+
+	@Override
+	public synchronized void run() 
+	{
+		try {
+			jsgfRecognizer = new LiveSpeechRecognizer(configuration);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		jsgfRecognizer.startRecognition(true);
+		
+		while (true) 
+        {
+            System.out.println("Say command:");
+            System.out.println("Example: exit");
+            System.out.println("Example: call police");
+
+            String utterance = jsgfRecognizer.getResult().getHypothesis();
+
+            System.out.println("\n" + utterance);
+            
+            if (utterance.endsWith("police")) 
+            {
+                jsgfRecognizer.stopRecognition();
+                
+                broker.publish("light/effect", "police", "");
+                
+                jsgfRecognizer.startRecognition(true);
+            }
+            
+            if (utterance.indexOf("rainbow") != -1)
+            {
+            	jsgfRecognizer.stopRecognition();
+            	
+                broker.publish("light/effect", "rainbowCycle", "");
+
+                jsgfRecognizer.startRecognition(true);
+            }
+
+            if (utterance.endsWith("system shock")) 
+            {
+                jsgfRecognizer.stopRecognition();
+                
+                broker.publish("light/effect", "shodan", "");
+                
+                jsgfRecognizer.startRecognition(true);
+            }
+            
+            if (utterance.indexOf("exit") != -1)
+                break;
         }
 
         jsgfRecognizer.stopRecognition();
