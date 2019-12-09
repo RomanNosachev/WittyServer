@@ -1,4 +1,4 @@
-package com.grandfather.WittyServer;
+package com.grandfather.WittyServer.audio;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;

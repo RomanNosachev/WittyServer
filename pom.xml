@@ -15,10 +15,6 @@
 	<name>WittyServer</name>
 	<description>Home server for IoT with MQTT support</description>
 
-	<properties>
-		<java.version>11</java.version>
-	</properties>
-
 	<repositories>
   		<repository>
     		<id>bintray</id>
@@ -30,6 +26,16 @@
       			<enabled>false</enabled>
     		</snapshots>
   		</repository>
+  		<repository>
+            <id>snapshots-repo</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
 	</repositories>
 
 	<dependencies>
@@ -95,6 +101,17 @@
 		</dependency>
 		
 		<dependency>
+            <groupId>edu.cmu.sphinx</groupId>
+            <artifactId>sphinx4-core</artifactId>
+  			<version>5prealpha-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>edu.cmu.sphinx</groupId>
+            <artifactId>sphinx4-data</artifactId>
+            <version>5prealpha-SNAPSHOT</version>
+        </dependency>
+	
+		<dependency>
       		<groupId>junit</groupId>
       		<artifactId>junit</artifactId>
       		<scope>test</scope>
@@ -106,6 +123,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+			   <groupId>org.apache.maven.plugins</groupId>
+			   <artifactId>maven-compiler-plugin</artifactId>
+			   <configuration>
+			       <source>1.8</source>
+			       <target>1.8</target>
+			   </configuration>
 			</plugin>
 		</plugins>
 	</build>

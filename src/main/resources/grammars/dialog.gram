@@ -1,0 +1,13 @@
+#JSGF V1.0;
+
+grammar dialog;
+
+<greeting> = [ok | hi | hello] shodan;
+
+<effect> = police | rainbow;
+
+<menu_command> = [play | call] <effect> | 
+system shock |
+exit;
+
+public <command> = <greeting> <menu_command>;
