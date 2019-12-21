@@ -7,8 +7,6 @@ import java.nio.charset.Charset;
 import java.util.Collections;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
 import com.grandfather.WittyServer.audio.AudioDriver;
 
 import io.moquette.broker.Server;
@@ -116,18 +114,5 @@ implements Runnable
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-        
-        System.out.println("Before self publish");
-        MqttPublishMessage message = MqttMessageBuilders.publish()
-            .topicName("/exit")
-            .retained(true)
-//        qos(MqttQoS.AT_MOST_ONCE);
-//        qQos(MqttQoS.AT_LEAST_ONCE);
-            .qos(MqttQoS.EXACTLY_ONCE)
-            .payload(Unpooled.copiedBuffer("Hello World!!".getBytes(UTF_8)))
-            .build();
-
-        mqttBroker.internalPublish(message, "INTRLPUB");
-        System.out.println("After self publish");
 	}
 }

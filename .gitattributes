@@ -1,0 +1,5 @@
+C:/Users/Роман/eclipse-workspace/WittyServer/WittyServer/src/main/resources/models/russian/ru.lm.bin filter=lfs diff=lfs merge=lfs -text
+*.dict filter=lfs diff=lfs merge=lfs -text
+*.bin filter=lfs diff=lfs merge=lfs -text
+*.lm.bin filter=lfs diff=lfs merge=lfs -text
+*.dic filter=lfs diff=lfs merge=lfs -text
