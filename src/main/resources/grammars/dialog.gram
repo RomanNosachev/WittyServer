@@ -2,12 +2,11 @@
 
 grammar dialog;
 
-<greeting> = [ok | hi | hello] shodan;
+<greeting> = [окей | привет] шодан;
 
-<effect> = police | rainbow;
+<effect> = менты | радуга | пульс;
 
-<menu_command> = [play | call] <effect> | 
-system shock |
-exit;
+<menu_command> = [включи | вызови] <effect> |
+[системный] шок;
 
 public <command> = <greeting> <menu_command>;
