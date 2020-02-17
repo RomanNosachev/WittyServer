@@ -1,0 +1,4 @@
+--patch-module
+com.witty_home.module_base=_
+--add-reads
+com.witty_home.module_base=ALL-UNNAMED

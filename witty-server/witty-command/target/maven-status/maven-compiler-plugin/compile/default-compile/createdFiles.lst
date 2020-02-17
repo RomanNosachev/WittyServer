@@ -1,0 +1,5 @@
+module-info.class
+com\witty_home\command_module\model\CommandEntity.class
+com\witty_home\command_module\model\CommandModel.class
+com\witty_home\command_module\model\CommandAction.class
+com\witty_home\command_module\model\CommandRepository.class

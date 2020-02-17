@@ -1,0 +1,4 @@
+com\witty_home\core\CoreMain.class
+module-info.class
+com\witty_home\core\controller\CoreController.class
+com\witty_home\core\WittyManager.class

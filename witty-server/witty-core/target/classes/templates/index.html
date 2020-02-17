@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>WittyServer</title>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"> 
+	<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div>
+      <table>
+        <tr>
+          <form th:action="@{/}" method="post">
+          	<td>
+	          	<ul>
+	          		<li><p><input name="effect" type="radio" value="rainbowCycle" checked></p>StringRequest</li>
+	          		<li><p><input name="effect" type="radio" value="police">PlaybackRequest</p></li>
+	          	</ul>
+	        </td>
+            <td><button class="effectSubmit" type="submit">Submit</button></td>
+          </form> 
+        </tr>
+      </table>
+    </div>
+</body>
+</html>
