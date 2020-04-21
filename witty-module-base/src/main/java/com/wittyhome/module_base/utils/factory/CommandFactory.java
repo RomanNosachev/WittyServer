@@ -1,14 +1,13 @@
-package com.wittyhome.module_base.utils.factory.command;
+package com.wittyhome.module_base.utils.factory;
 
 import java.util.List;
 
 import org.springframework.core.ResolvableType;
-import org.springframework.stereotype.Component;
 
 import com.wittyhome.module_base.command.Action;
 import com.wittyhome.module_base.command.Command;
 import com.wittyhome.module_base.model.Service;
-import com.wittyhome.module_base.utils.builder.command.CommandBuilder;
+import com.wittyhome.module_base.utils.builder.CommandBuilder;
 
 //@Component
 public class CommandFactory<A extends Action, S extends Service>

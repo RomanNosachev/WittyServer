@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>Twitter Bootstrap Example</title>
+<title>WittyHome</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
 
@@ -10,6 +10,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="../static/css/custom.css" th:href="@{/css/custom.css}">
 </head>
 
 <body>
@@ -25,9 +26,8 @@
 		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 		crossorigin="anonymous"></script>
 
-
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="#">Navbar</a>
+		<a class="navbar-brand" href="#">WittyHome</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
 			aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -37,10 +37,11 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link" href="#">Home
+				<li class="nav-item active"><a class="nav-link" href="#">Scenario
 						<span class="sr-only">(current)</span>
 				</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+				<li class="nav-item"><a class="nav-link" href="./request.html" th:href="@{/request}">Request</a></li>
+				<li class="nav-item"><a class="nav-link" href="./action.html" th:href="@{/action}">Action</a></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -61,6 +62,83 @@
 			</form>
 		</div>
 	</nav>
+
+	<form th:action="@{/saveScenario}" th:object="${scenarioForm}" class="scenario-form" method="post">
+		<label for="request-select">Select request:</label>
+		<select class="form-control" id="request-select" th:field="*{requestId}">
+			<!--
+			<option value="StringRequest-div">StringRequest</option>
+			<option value="BrokerRequest-div">BrokerRequest</option>
+			<option value="SpeechRequest-div">SpeechRequest</option>
+			-->
+			<option value="" selected></option>
+			<option th:each="request: ${requests}" th:value="${request.id}" 
+			th:utext="${'[' + request.class.simpleName + '] ' + request}"></option>
+		</select>
+		<label for="input-group-addon btn btn-primary">Groovy-code, boolean result</label>
+		<textarea class="form-control custom-control" rows="7" style="resize:none" th:field="*{rule.script}"></textarea>     
+		<label for="action-select">Select action:</label>
+		<select class="form-control" id="request-select" th:field="*{actionId}">
+			<!--
+			<option value="StringRequest-div">StringRequest</option>
+			<option value="BrokerRequest-div">BrokerRequest</option>
+			<option value="SpeechRequest-div">SpeechRequest</option>
+			-->
+			<option value="" selected></option>
+			<option th:each="action: ${actions}" th:value="${action.id}" 
+			th:utext="${'[' + action.class.simpleName + '] ' + action}"></option>
+		</select>
+		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Save</button>
+	</form>
+	
+	<!--
+	<form th:action="@{/saveScenario}" th:object="${rule}" class="rule-form" method="post">
+		<label for="input-group-addon btn btn-primary">Groovy-code, boolean result</label>
+		<div class="input-group">
+			<textarea class="form-control custom-control" rows="7" style="resize:none" th:field="*{script}"></textarea>     
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Save</button>
+		</div>
+	</form>
+	-->
+
+	<div class="scenario-div">
+		<table class="table">
+			<caption>Smart home scenario editor</caption>
+			<tr>
+				<th colspan="2" class="th-1">Request</th>
+				<th class="th-1">Rule</th>
+				<th colspan="2" class="th-1">Action</th>
+			</tr>	
+			<tr>
+				<th>Type</th>
+				<th>Data</th>
+				<th>Code</th>
+				<th>Type</th>
+				<th>Data</th>
+			</tr>
+			<!--
+			<tr>
+				<td>TestRequest</td>
+				<td>name: test</td>
+				<td>if (request.name == "test") {action.payload = "test";return true; } else return false;</td>
+				<td>TestAction</td>
+				<td>topic: test
+				payload: test
+				clientid: null</td>
+			
+			</tr>
+			-->
+			<tr th:each="scenario: ${scenarios}">
+				<td th:text="${scenario.task.request.class.simpleName}"></td>
+				<td th:text="${scenario.task.request}"></td>
+				<td th:if="${scenario.rule}" th:text="${scenario.rule}"></td>
+				<td th:text="${scenario.task.action.class.simpleName}"></td>
+				<td th:text="${scenario.task.action}"></td>
+			</tr>
+			
+		</table>
+	</div>
+	
 </body>
 
 </html>

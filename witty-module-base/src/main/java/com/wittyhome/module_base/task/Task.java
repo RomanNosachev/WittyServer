@@ -13,7 +13,7 @@ implements Serializable, Entity
 {
 	@Id
 	private String id;
-	
+
 	private static final long serialVersionUID = 8337580937901745257L;
 	
 	private Request request;

@@ -16,4 +16,5 @@ module com.wittyhome.broker {
 	requires io.netty.common;	
 	requires spring.context;
 	requires spring.beans;
+	requires spring.data.commons;
 }

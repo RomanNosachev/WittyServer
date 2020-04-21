@@ -59,12 +59,6 @@ implements Dispatcher
 	}
 
 	@Override
-	public void dispatchAuto(Request request) {
-		// TODO Auto-generated method stub
-		System.out.println("Handled auto");
-	}
-	
-	@Override
 	public <A extends Action> void registerCommand(Class<A> actionType, Command<A, ? extends Service> command) 
 	{
 		var commandsWithAction = commandRegistry.get(command.getActionClass());

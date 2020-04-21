@@ -1,5 +1,8 @@
 package com.wittyhome.core.command;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class JsonAction 
 extends StringAction
 {

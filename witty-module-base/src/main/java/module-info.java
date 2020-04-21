@@ -16,7 +16,5 @@ module com.wittyhome.module_base {
 	requires spring.context;
 	requires spring.core;
 	requires spring.beans;
-	
 	requires spring.data.commons;
-	requires spring.data.mongodb;
 }

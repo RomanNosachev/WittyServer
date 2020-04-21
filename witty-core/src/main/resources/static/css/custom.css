@@ -1,0 +1,68 @@
+.table caption {
+	caption-side: top;
+}
+
+.table {
+	width: 80%;
+	max-width: 80%;
+	margin: auto;
+	word-break: break-all;
+}
+
+.table tr td {
+	min-width: 20%;
+}
+
+.scenario-form {
+	width: 80%;
+	max-width: 80%;
+	margin: auto;
+}
+
+.requestClassName {
+	display: none;
+}
+
+.actionClassName {
+	display: none;
+}
+
+.requestType-form {
+	width: 80%;
+	max-width: 80%;
+	margin: auto;
+}
+
+.actionType-form {
+	width: 80%;
+	max-width: 80%;
+	margin: auto;
+}
+
+.request-div {
+	width: 80%;
+	max-width: 80%;
+	margin: auto;
+	display: none;
+}
+
+.action-div {
+	width: 80%;
+	max-width: 80%;
+	margin: auto;
+	display: none;
+}
+
+.table .th-1 {
+	text-align: center;
+	border: 1px solid gray;
+}
+
+.rule-form {
+	width: 80%;
+	margin: auto;
+}
+
+.rule-form label {
+	color: gray;
+}

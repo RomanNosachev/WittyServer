@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>WittyHome | Action</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="../static/css/custom.css" th:href="@{/css/custom.css}">
+</head>
+
+<body>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+	
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#">WittyHome</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" href="./index.html" th:href="@{/index}">Scenario</a></li>
+				<li class="nav-item"><a class="nav-link" href="./request.html" th:href="@{/request}">Request</a></li>
+				<li class="nav-item active"><a class="nav-link" href="#">Action
+					<span class="sr-only">(current)</span>
+				</a></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> Dropdown </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="#">Action</a> <a
+							class="dropdown-item" href="#">Another action</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#">Something else here</a>
+					</div>
+				</li>
+				<li class="nav-item"><a class="nav-link disabled" href="#"
+					tabindex="-1" aria-disabled="true">Disabled</a></li>
+			</ul>
+			<form class="form-inline my-2 my-lg-0">
+				<input class="form-control mr-sm-2" type="search"
+					placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</form>
+		</div>
+	</nav>	
+	
+	<form class="actionType-form">
+		<div class="form-group">
+			<label for="actionType-select">Select action type:</label>
+			<select class="form-control" id="actionType-select" name="actionClassName" th:name="actionClassName">
+				<!--
+				<option value="StringAction-div">StringAction</option>
+				<option value="BrokerAction-div">BrokerAction</option>
+				<option value="PlaybackAction-div">PlaybackAction</option>
+				<option value="JsonAction-div">JsonAction</option>
+				-->
+				<option value="" selected></option>
+				<option th:each="class: ${actionClasses}" th:value="${class.name}" th:utext="${class.simpleName}">
+				</option>
+			</select>			
+		</div>
+	</form>
+	
+	<div class="action-div" name="StringAction-div" id="StringAction-div">
+		<form class="action-form" th:action="@{/saveAction}" th:object="${StringAction}" method="post">
+			<label for="stringActionTextInput">Text</label>
+			<input type="text" class="form-control" id="stringActionTextInput" th:field="*{text}">
+			
+			<button class="btn btn-outline-success my-2 my-sm-0" id="action-button" type="submit">Save</button>
+		</form>
+	</div>
+	<div class="action-div" name="PlaybackAction-div" id="PlaybackAction-div">
+		<form class="action-form" th:action="@{/saveAction}" th:object="${PlaybackAction}" method="post">
+			<label for="playbackActionFilenameInput">Audio file name</label>
+			<input type="text" class="form-control" id="playbackActionFilenameInput" th:field="*{filename}">
+		
+			<button class="btn btn-outline-success my-2 my-sm-0" id="action-button" type="submit">Save</button>
+		</form>
+	</div>	
+	<div class="action-div" name="JsonAction-div" id="JsonAction-div">
+		<form class="action-form" th:action="@{/saveAction}" th:object="${JsonAction}" method="post">
+			<label for="jsonActionTextInput">Text</label>
+			<input type="text" class="form-control" id="jsonActionTextInput" th:field="*{text}">
+		
+			<button class="btn btn-outline-success my-2 my-sm-0" id="action-button" type="submit">Save</button>
+		</form>
+	</div>	
+	<div class="action-div" name="BrokerAction-div" id="BrokerAction-div">
+		<form class="action-form" th:action="@{/saveAction}" th:object="${BrokerAction}" method="post">
+			<label for="brokerActionTopicInput">Topic</label>
+			<input type="text" class="form-control" id="brokerActionTopicInput" th:field="*{topic}">
+			
+			<label for="brokerActionPayloadInput">Payload</label>
+			<input type="text" class="form-control" id="brokerActionPayloadInput" th:field="*{payload}">
+			
+			<label for="brokerActionClientIdInput">Client ID</label>
+			<input type="text" class="form-control" id="brokerActionClientIdInput" th:field="*{clientId}">	
+			 		
+			<button class="btn btn-outline-success my-2 my-sm-0" id="action-button" type="submit">Save</button>
+		</form>
+	</div>
+
+	<div>
+		<table class="table action-table">
+			<caption>Action editor</caption>
+			<tr>
+				<th colspan="3" class="th-1">Action</th>
+			</tr>	
+			<tr>
+				<th>ID</th>
+				<th>Type</th>
+				<th>Data</th>
+			</tr>	
+			<!--
+			<tr>
+				<td>12345test</td>
+				<td>com.wittyhome.test.testAction</td>
+				<td>data: data
+				data: data
+				data: data
+				data: data
+				data: data-target
+				data: data
+				data: data
+				data: datadata: data
+				</td>
+			</tr>
+			-->
+			<tr th:each="action: ${actions}">
+				<td th:text="${action.id}"></td>
+				<td th:text="${action.class.simpleName}"></td>
+				<td th:text="${action}"></td>
+			</tr>
+			
+		</table>
+	</div>
+	
+	<script type="text/javascript" src="../static/js/main.js" th:src="@{/js/main.js}"></script>
+</body>
+</html>
