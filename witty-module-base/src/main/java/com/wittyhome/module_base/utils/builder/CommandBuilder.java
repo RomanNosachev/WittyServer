@@ -1,4 +1,4 @@
-package com.wittyhome.module_base.utils.builder.command;
+package com.wittyhome.module_base.utils.builder;
 
 import com.wittyhome.module_base.command.Action;
 import com.wittyhome.module_base.command.Command;

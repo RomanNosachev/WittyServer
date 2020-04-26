@@ -12,9 +12,9 @@ extends BaseCommand<StringAction, StringService>
 	@Override
 	public void execute(StringAction action) 
 	{
-		System.out.println("StringCommand: " + action.getName());
+		System.out.println("StringCommand: " + action.getText());
 		
-		target.print(action.getName());
+		target.print(action.getText());
 	}
 
 	@Override

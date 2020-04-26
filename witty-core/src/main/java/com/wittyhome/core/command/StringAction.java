@@ -1,36 +1,66 @@
 package com.wittyhome.core.command;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.stereotype.Component;
+
 import com.wittyhome.module_base.command.Action;
 
+@Component
 public class StringAction 
 implements Action
 {
 	private static final long serialVersionUID = -5872469110774846472L;
 
-	private String name;
+	@Id
+	private String id;
+	
+	private String text;
 	
 	public StringAction() 
 	{
 	}
 
-	public StringAction(String name)
+	public StringAction(String text)
 	{
-		this.name = name;
+		this.text = text;
 	}
 	
-	public void setName(String name)
+	public void setText(String text)
 	{
-		this.name = name;
+		this.text = text;
 	}
 	
-	public String getName()
+	public String getText()
 	{
-		return name;
+		return text;
 	}
 
 	@Override
 	public String toString() 
 	{
-		return String.format("StringAction name=%s", name);
+		return String.format("text: %s", text);
+	}
+	
+	@Override
+	public Action clone() 
+	{
+		try {
+			return (Action) super.clone();
+		}
+		catch (CloneNotSupportedException e) {
+			throw new InternalError();
+		}
+	}
+
+	@Override
+	public void setId(String id) 
+	{
+		this.id = id;
+	}
+
+	@Override
+	public String getId() 
+	{
+		return id;
 	}
 }

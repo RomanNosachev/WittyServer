@@ -29,7 +29,6 @@ implements SpeechRecordSender, Generator<SpeechRequest>
 {
     private static final Logger LOG = LoggerFactory.getLogger(VoskWebsocketAdapter.class);
  
-    //private Generator<SpeechRequest> generator;
     private Dispatcher dispatcher;
     
     private WebSocketClient webSocketClient;

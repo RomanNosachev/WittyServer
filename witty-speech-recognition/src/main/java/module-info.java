@@ -11,4 +11,6 @@ module com.wittyhome.speech_recognition {
 	requires spring.websocket;
 	requires java.annotation;
 	requires com.google.gson;
+	requires spring.web;
+	requires spring.data.commons;
 }

@@ -7,8 +7,6 @@ import com.wittyhome.module_base.model.Service;
 
 public interface Dispatcher 
 {
-	public <R extends Request> void dispatch(R request);
-	public void dispatchAuto(Request request);
-	
+	public <R extends Request> void dispatch(R request);	
 	public <A extends Action> void registerCommand(Class<A> actionType, Command<A, ? extends Service> command);
 }

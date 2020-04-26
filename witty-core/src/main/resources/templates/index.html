@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>Twitter Bootstrap Example</title>
+<title>WittyHome</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
 
@@ -10,6 +10,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="../static/css/custom.css" th:href="@{/css/custom.css}">
 </head>
 
 <body>
@@ -25,9 +26,8 @@
 		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
 		crossorigin="anonymous"></script>
 
-
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="#">Navbar</a>
+		<a class="navbar-brand" href="#">WittyHome</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
 			aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -37,10 +37,11 @@
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link" href="#">Home
+				<li class="nav-item active"><a class="nav-link" href="#">Scenario
 						<span class="sr-only">(current)</span>
 				</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+				<li class="nav-item"><a class="nav-link" href="./request.html" th:href="@{/request}">Request</a></li>
+				<li class="nav-item"><a class="nav-link" href="./action.html" th:href="@{/action}">Action</a></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -61,6 +62,145 @@
 			</form>
 		</div>
 	</nav>
+
+	<form th:action="@{/saveScenario}" class="scenario-form" id="scenario-form" method="post">
+		<div class="requestType-div">
+			<label for="requestType-select">Select request type:</label>
+			<select class="form-control" id="requestType-select" name="requestClassName" th:name="requestClassName">
+				<!--
+				<option value="StringRequest-div">StringRequest</option>
+				<option value="BrokerRequest-div">BrokerRequest</option>
+				<option value="SpeechRequest-div">SpeechRequest</option>
+				-->
+				<option value="" selected></option>
+				<option th:each="class: ${requestClasses}" th:value="${class.name}" th:utext="${class.simpleName}"></option>
+			</select>
+		</div>
+		
+		<div class="request-div" name="StringRequest-div" id="StringRequest-div">
+			<label for="stringRequestTextInput">Text</label>
+			<input type="text" class="form-control" id="stringRequestTextInput" 
+			th:name="StringRequest.text" th:value="${StringRequest.text}">
+		</div>
+		<div class="request-div" name="SpeechRequest-div" id="SpeechRequest-div">
+			<label for="speechRequestUtteranceInput">Utterance</label>
+			<input type="text" class="form-control" id="speechRequestUtteranceInput" 
+			th:name="SpeechRequest.utterance" th:value="${SpeechRequest.utterance}">
+		</div>	
+		<div class="request-div" name="BrokerRequest-div" id="BrokerRequest-div">
+			<label for="brokerRequestTopicInput">Topic</label>
+			<input type="text" class="form-control" id="brokerRequestTopicInput" 
+			th:name="BrokerRequest.topic" th:value="${BrokerRequest.topic}">
+				
+			<label for="brokerRequestPayloadInput">Payload</label>
+			<input type="text" class="form-control" id="brokerRequestPayloadInput" 
+			th:name="BrokerRequest.payload" th:value="${BrokerRequest.payload}">
+				
+			<label for="brokerRequestClientIdInput">Client ID</label>
+			<input type="text" class="form-control" id="brokerRequestClientIdInput" 
+			th:name="BrokerRequest.clientId" th:value="${BrokerRequest.clientId}">	
+		</div>	
+		
+		<div class="rule-div">
+			<label for="input-group-addon btn btn-primary">Groovy-code, boolean result</label>
+			<textarea class="form-control custom-control" rows="7" style="resize:none" th:field="${rule.script}"></textarea> 
+		</div>
+		
+		<div class="actionType-div">
+			<label for="actionType-select">Select action type:</label>
+			<select class="form-control" id="actionType-select" name="actionClassName" th:name="actionClassName">
+				<!--
+				<option value="StringAction-div">StringAction</option>
+				<option value="BrokerAction-div">BrokerAction</option>
+				<option value="PlaybackAction-div">PlaybackAction</option>
+				<option value="JsonAction-div">JsonAction</option>
+				-->
+				<option value="" selected></option>
+				<option th:each="class: ${actionClasses}" th:value="${class.name}" th:utext="${class.simpleName}"></option>
+			</select>		
+		</div>
+		
+		<div class="action-div" name="StringAction-div" id="StringAction-div">
+			<label for="stringActionTextInput">Text</label>
+			<input type="text" class="form-control" id="stringActionTextInput" 
+			th:name="StringAction.text" th:value="${StringAction.text}">
+		</div>
+		<div class="action-div" name="PlaybackAction-div" id="PlaybackAction-div">
+			<label for="playbackActionFilenameInput">Audio file name</label>
+			<input type="text" class="form-control" id="playbackActionFilenameInput" 
+			th:name="PlaybackAction.filename" th:value="${PlaybackAction.filename}">
+		</div>	
+		<div class="action-div" name="JsonAction-div" id="JsonAction-div">
+			<label for="jsonActionTextInput">Text</label>
+			<input type="text" class="form-control" id="jsonActionTextInput" 
+			th:name="JsonAction.text" th:value="${JsonAction.text}">
+		</div>	
+		<div class="action-div" name="BrokerAction-div" id="BrokerAction-div">
+			<label for="brokerActionTopicInput">Topic</label>
+			<input type="text" class="form-control" id="brokerActionTopicInput" 
+			th:name="BrokerAction.topic" th:value="${BrokerAction.topic}">
+				
+			<label for="brokerActionPayloadInput">Payload</label>
+			<input type="text" class="form-control" id="brokerActionPayloadInput" 
+			th:name="BrokerAction.payload" th:value="${BrokerAction.payload}">
+				
+			<label for="brokerActionClientIdInput">Client ID</label>
+			<input type="text" class="form-control" id="brokerActionClientIdInput" 
+			th:name="BrokerAction.clientId" th:value="${BrokerAction.clientId}">	
+		</div>
+		<button class="btn btn-outline-success my-2 my-sm-0" id="request-button" type="submit">Save</button>
+	</form>
+
+	<div class="scenario-div">
+		<table class="table table-responsive">
+			<caption>Smart home scenario editor</caption>
+			<tr>
+				<th colspan="2" class="th-1">Request</th>
+				<th class="th-1">Rule</th>
+				<th colspan="2" class="th-1">Action</th>
+			</tr>	
+			<tr>
+				<th>Type</th>
+				<th>Data</th>
+				<th>Code</th>
+				<th>Type</th>
+				<th>Data</th>
+			</tr>
+			
+			<!--
+			<tr>
+				<td>TestRequest</td>
+				<td>name: test</td>
+				<td>if (request.name == "test") {action.payload = "test";return true; } else return false;</td>
+				<td>TestAction</td>
+				<td>topic: test
+				payload: test
+				clientid: null</td>
+			
+			</tr>
+			
+			<tr>
+				<td>TestRequest</td>
+				<td>name: test</td>
+				<td>if (request.name == "test") {action.payload = "test";return true; } else return false;</td>
+				<td>TestAction</td>
+				<td>topic: test
+				payload: test
+				clientid: null</td>
+			
+			</tr>
+			-->
+			<tr th:each="scenario: ${scenarios}">
+				<td th:text="${scenario.task.request.class.simpleName}"></td>
+				<td th:text="${scenario.task.request}"></td>
+				<td th:if="${scenario.rule}" th:text="${scenario.rule}"></td>
+				<td th:text="${scenario.task.action.class.simpleName}"></td>
+				<td th:text="${scenario.task.action}"></td>
+			</tr>
+		</table>
+	</div>
+	
+	<script type="text/javascript" src="../static/js/main.js" th:src="@{/js/main.js}"></script>
 </body>
 
 </html>

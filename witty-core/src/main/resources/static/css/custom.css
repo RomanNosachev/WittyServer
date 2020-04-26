@@ -1,0 +1,54 @@
+.table caption {
+	caption-side: top;
+}
+
+.table {
+	width: 80%;
+	max-width: 80%;
+	margin: auto;
+	word-break: break-all;
+}
+
+.table tr.selected {
+	border: 3px dotted green;
+}
+
+.table tr td {
+	min-width: 20%;
+}
+
+.scenario-form {
+	width: 80%;
+	max-width: 80%;
+	margin: auto;
+}
+
+.requestClassName {
+	display: none;
+}
+
+.actionClassName {
+	display: none;
+}
+
+.request-div {
+	display: none;
+}
+
+.action-div {
+	display: none;
+}
+
+.table .th-1 {
+	text-align: center;
+	border: 1px solid #c9c7c7;
+}
+
+.rule-form {
+	width: 80%;
+	margin: auto;
+}
+
+.rule-form label {
+	color: gray;
+}

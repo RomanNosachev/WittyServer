@@ -12,9 +12,9 @@ extends BaseCommand<JsonAction, StringService>
 	@Override
 	public void execute(JsonAction action) 
 	{
-		System.out.println("Json command: " + action.getName());
+		System.out.println("Json command: " + action.getText());
 		
-		target.print(action.getName());
+		target.print(action.getText());
 	}
 
 	@Override
