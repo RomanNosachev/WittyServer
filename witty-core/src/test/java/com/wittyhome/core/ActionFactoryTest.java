@@ -2,6 +2,7 @@ package com.wittyhome.core;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -30,6 +31,8 @@ public class ActionFactoryTest
 		assertNotNull(factory.getAction(StringAction.class));
 		
 		assertNotNull(factory.getAction(StringAction.class.getName()));
+		
+		assertNull(factory.getAction("test string"));
 		
 		assertTrue(factory.getAction("com.wittyhome.broker.command.BrokerAction").getClass() 
 				== BrokerAction.class);

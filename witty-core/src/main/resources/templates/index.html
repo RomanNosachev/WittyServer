@@ -63,46 +63,96 @@
 		</div>
 	</nav>
 
-	<form th:action="@{/saveScenario}" th:object="${scenarioForm}" class="scenario-form" method="post">
-		<label for="request-select">Select request:</label>
-		<select class="form-control" id="request-select" th:field="*{requestId}">
-			<!--
-			<option value="StringRequest-div">StringRequest</option>
-			<option value="BrokerRequest-div">BrokerRequest</option>
-			<option value="SpeechRequest-div">SpeechRequest</option>
-			-->
-			<option value="" selected></option>
-			<option th:each="request: ${requests}" th:value="${request.id}" 
-			th:utext="${'[' + request.class.simpleName + '] ' + request}"></option>
-		</select>
-		<label for="input-group-addon btn btn-primary">Groovy-code, boolean result</label>
-		<textarea class="form-control custom-control" rows="7" style="resize:none" th:field="*{rule.script}"></textarea>     
-		<label for="action-select">Select action:</label>
-		<select class="form-control" id="request-select" th:field="*{actionId}">
-			<!--
-			<option value="StringRequest-div">StringRequest</option>
-			<option value="BrokerRequest-div">BrokerRequest</option>
-			<option value="SpeechRequest-div">SpeechRequest</option>
-			-->
-			<option value="" selected></option>
-			<option th:each="action: ${actions}" th:value="${action.id}" 
-			th:utext="${'[' + action.class.simpleName + '] ' + action}"></option>
-		</select>
-		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Save</button>
-	</form>
-	
-	<!--
-	<form th:action="@{/saveScenario}" th:object="${rule}" class="rule-form" method="post">
-		<label for="input-group-addon btn btn-primary">Groovy-code, boolean result</label>
-		<div class="input-group">
-			<textarea class="form-control custom-control" rows="7" style="resize:none" th:field="*{script}"></textarea>     
-			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Save</button>
+	<form th:action="@{/saveScenario}" class="scenario-form" id="scenario-form" method="post">
+		<div class="requestType-div">
+			<label for="requestType-select">Select request type:</label>
+			<select class="form-control" id="requestType-select" name="requestClassName" th:name="requestClassName">
+				<!--
+				<option value="StringRequest-div">StringRequest</option>
+				<option value="BrokerRequest-div">BrokerRequest</option>
+				<option value="SpeechRequest-div">SpeechRequest</option>
+				-->
+				<option value="" selected></option>
+				<option th:each="class: ${requestClasses}" th:value="${class.name}" th:utext="${class.simpleName}"></option>
+			</select>
 		</div>
+		
+		<div class="request-div" name="StringRequest-div" id="StringRequest-div">
+			<label for="stringRequestTextInput">Text</label>
+			<input type="text" class="form-control" id="stringRequestTextInput" 
+			th:name="StringRequest.text" th:value="${StringRequest.text}">
+		</div>
+		<div class="request-div" name="SpeechRequest-div" id="SpeechRequest-div">
+			<label for="speechRequestUtteranceInput">Utterance</label>
+			<input type="text" class="form-control" id="speechRequestUtteranceInput" 
+			th:name="SpeechRequest.utterance" th:value="${SpeechRequest.utterance}">
+		</div>	
+		<div class="request-div" name="BrokerRequest-div" id="BrokerRequest-div">
+			<label for="brokerRequestTopicInput">Topic</label>
+			<input type="text" class="form-control" id="brokerRequestTopicInput" 
+			th:name="BrokerRequest.topic" th:value="${BrokerRequest.topic}">
+				
+			<label for="brokerRequestPayloadInput">Payload</label>
+			<input type="text" class="form-control" id="brokerRequestPayloadInput" 
+			th:name="BrokerRequest.payload" th:value="${BrokerRequest.payload}">
+				
+			<label for="brokerRequestClientIdInput">Client ID</label>
+			<input type="text" class="form-control" id="brokerRequestClientIdInput" 
+			th:name="BrokerRequest.clientId" th:value="${BrokerRequest.clientId}">	
+		</div>	
+		
+		<div class="rule-div">
+			<label for="input-group-addon btn btn-primary">Groovy-code, boolean result</label>
+			<textarea class="form-control custom-control" rows="7" style="resize:none" th:field="${rule.script}"></textarea> 
+		</div>
+		
+		<div class="actionType-div">
+			<label for="actionType-select">Select action type:</label>
+			<select class="form-control" id="actionType-select" name="actionClassName" th:name="actionClassName">
+				<!--
+				<option value="StringAction-div">StringAction</option>
+				<option value="BrokerAction-div">BrokerAction</option>
+				<option value="PlaybackAction-div">PlaybackAction</option>
+				<option value="JsonAction-div">JsonAction</option>
+				-->
+				<option value="" selected></option>
+				<option th:each="class: ${actionClasses}" th:value="${class.name}" th:utext="${class.simpleName}"></option>
+			</select>		
+		</div>
+		
+		<div class="action-div" name="StringAction-div" id="StringAction-div">
+			<label for="stringActionTextInput">Text</label>
+			<input type="text" class="form-control" id="stringActionTextInput" 
+			th:name="StringAction.text" th:value="${StringAction.text}">
+		</div>
+		<div class="action-div" name="PlaybackAction-div" id="PlaybackAction-div">
+			<label for="playbackActionFilenameInput">Audio file name</label>
+			<input type="text" class="form-control" id="playbackActionFilenameInput" 
+			th:name="PlaybackAction.filename" th:value="${PlaybackAction.filename}">
+		</div>	
+		<div class="action-div" name="JsonAction-div" id="JsonAction-div">
+			<label for="jsonActionTextInput">Text</label>
+			<input type="text" class="form-control" id="jsonActionTextInput" 
+			th:name="JsonAction.text" th:value="${JsonAction.text}">
+		</div>	
+		<div class="action-div" name="BrokerAction-div" id="BrokerAction-div">
+			<label for="brokerActionTopicInput">Topic</label>
+			<input type="text" class="form-control" id="brokerActionTopicInput" 
+			th:name="BrokerAction.topic" th:value="${BrokerAction.topic}">
+				
+			<label for="brokerActionPayloadInput">Payload</label>
+			<input type="text" class="form-control" id="brokerActionPayloadInput" 
+			th:name="BrokerAction.payload" th:value="${BrokerAction.payload}">
+				
+			<label for="brokerActionClientIdInput">Client ID</label>
+			<input type="text" class="form-control" id="brokerActionClientIdInput" 
+			th:name="BrokerAction.clientId" th:value="${BrokerAction.clientId}">	
+		</div>
+		<button class="btn btn-outline-success my-2 my-sm-0" id="request-button" type="submit">Save</button>
 	</form>
-	-->
 
 	<div class="scenario-div">
-		<table class="table">
+		<table class="table table-responsive">
 			<caption>Smart home scenario editor</caption>
 			<tr>
 				<th colspan="2" class="th-1">Request</th>
@@ -116,7 +166,19 @@
 				<th>Type</th>
 				<th>Data</th>
 			</tr>
+			
 			<!--
+			<tr>
+				<td>TestRequest</td>
+				<td>name: test</td>
+				<td>if (request.name == "test") {action.payload = "test";return true; } else return false;</td>
+				<td>TestAction</td>
+				<td>topic: test
+				payload: test
+				clientid: null</td>
+			
+			</tr>
+			
 			<tr>
 				<td>TestRequest</td>
 				<td>name: test</td>
@@ -135,10 +197,10 @@
 				<td th:text="${scenario.task.action.class.simpleName}"></td>
 				<td th:text="${scenario.task.action}"></td>
 			</tr>
-			
 		</table>
 	</div>
 	
+	<script type="text/javascript" src="../static/js/main.js" th:src="@{/js/main.js}"></script>
 </body>
 
 </html>

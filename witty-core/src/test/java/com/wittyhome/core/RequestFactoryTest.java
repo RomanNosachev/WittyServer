@@ -1,6 +1,7 @@
 package com.wittyhome.core;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -29,6 +30,8 @@ public class RequestFactoryTest
 		assertNotNull(factory.getRequest(StringRequest.class));
 		
 		assertNotNull(factory.getRequest(StringRequest.class.getName()));
+		
+		assertNull(factory.getRequest("test string"));
 		
 		assertTrue(factory.getRequest("com.wittyhome.broker.generator.BrokerRequest").getClass() 
 				== BrokerRequest.class);

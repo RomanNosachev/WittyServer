@@ -9,6 +9,10 @@
 	word-break: break-all;
 }
 
+.table tr.selected {
+	border: 3px dotted green;
+}
+
 .table tr td {
 	min-width: 20%;
 }
@@ -27,35 +31,17 @@
 	display: none;
 }
 
-.requestType-form {
-	width: 80%;
-	max-width: 80%;
-	margin: auto;
-}
-
-.actionType-form {
-	width: 80%;
-	max-width: 80%;
-	margin: auto;
-}
-
 .request-div {
-	width: 80%;
-	max-width: 80%;
-	margin: auto;
 	display: none;
 }
 
 .action-div {
-	width: 80%;
-	max-width: 80%;
-	margin: auto;
 	display: none;
 }
 
 .table .th-1 {
 	text-align: center;
-	border: 1px solid gray;
+	border: 1px solid #c9c7c7;
 }
 
 .rule-form {

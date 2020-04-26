@@ -3,6 +3,7 @@ package com.wittyhome.core.utils.factory;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +31,23 @@ implements ActionFactory
 	@Override
 	public Action getAction(String className) 
 	{
-		return actionRegistry.get(className).clone();
+		Action action = actionRegistry.get(className);
+		
+		if (Objects.nonNull(action))
+			return action.clone();
+		
+		return action;
 	}
 
 	@Override
 	public Action getAction(Class<? extends Action> type)
 	{
-		return actionRegistry.get(type.getName()).clone();
+		Action action = actionRegistry.get(type.getName());
+		
+		if (Objects.nonNull(action))
+			return action.clone();
+		
+		return action;
 	}
 
 	@Override

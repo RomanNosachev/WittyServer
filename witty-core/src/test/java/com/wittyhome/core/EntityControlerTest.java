@@ -8,28 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.wittyhome.core.generator.ActionController;
-import com.wittyhome.core.generator.RequestController;
+import com.wittyhome.core.generator.ScenarioController;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest()
 public class EntityControlerTest 
 {
 	@Autowired
-	private RequestController requestController;
-	
-	@Autowired
-	private ActionController actionController;
+	private ScenarioController controller;
 	
 	@Test
-	public void saveRequestTest()
+	public void scenarioControllerTest()
 	{
-		assertNotNull(requestController);		
-	}
-	
-	@Test
-	public void saveActionTest()
-	{
-		assertNotNull(actionController);
+		assertNotNull(controller);		
 	}
 }

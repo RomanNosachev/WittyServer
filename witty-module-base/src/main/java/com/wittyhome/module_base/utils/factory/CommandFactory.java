@@ -1,6 +1,8 @@
 package com.wittyhome.module_base.utils.factory;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.core.ResolvableType;
 
@@ -25,7 +27,7 @@ public class CommandFactory<A extends Action, S extends Service>
 		ResolvableType type = ResolvableType.forClassWithGenerics(CommandBuilder.class, action.getClass(),
 				service.getClass());
 		
-		CommandBuilder<A, S> builder = builders.stream().filter(b -> type.isInstance(b)).findFirst().get();
+		CommandBuilder<A, S> builder = builders.stream().filter(b -> type.isInstance(b)).findFirst().get();	
 				
 		return builder.createCommand(action, service);
 	}
