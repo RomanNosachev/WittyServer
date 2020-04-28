@@ -16,6 +16,15 @@ $('#requestType-select').on('change', function() {
 	displayRequestForm(fullRequestClassName);
 });
 
+/*
+$('editScenario-button').click(function() {
+	window.location.href = window.location.hostname + 'editScenario';
+});
+
+$('deleteScenario-button').click(function() {
+});
+*/
+
 $('.table td').click(function() {
 	$(this).parents('tr').addClass('selected').siblings().removeClass('selected');
 });

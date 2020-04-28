@@ -30,6 +30,16 @@ implements Serializable, Entity
 		this.setRule(rule);
 	}
 
+	public void setId(String id)
+	{
+		this.id = id;
+	}
+	
+	public String getId()
+	{
+		return id;
+	}
+	
 	public Task getTask() 
 	{
 		return task;

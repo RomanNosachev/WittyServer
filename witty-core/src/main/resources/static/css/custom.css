@@ -1,12 +1,59 @@
+.card-body pre {
+	background-color: #f7f8fa;
+	border: 1px solid #e4e6eb;
+	border-radius: 5px;
+}
+
+#accordion {
+	background: #F9F9F9; 
+	border: 1px solid #E1E1E8; 
+	border-top: 0px;
+	width: 80%;
+	margin: auto; 
+	padding: 8px;
+}
+
+.editScenario-form {
+	width: 80%;
+	margin: auto;
+	padding-top: 1em;
+}
+
+.panel-title a {
+	color: #8f8f8f;
+}
+
+.scenario-form {
+	width: 80%;
+	margin: auto;
+}
+
+.tab-content {
+	width: 100%;
+	margin: auto;
+}
+
+.nav-tabs {
+	width: 80%;
+	margin: auto;
+	padding-top: 1em;
+}
+
 .table caption {
 	caption-side: top;
 }
 
 .table {
-	width: 80%;
-	max-width: 80%;
-	margin: auto;
 	word-break: break-all;
+}
+
+.container {
+	margin-top: 1%;
+}
+
+.icon {
+	width: 50px;
+	height: 50px;
 }
 
 .table tr.selected {
@@ -15,12 +62,6 @@
 
 .table tr td {
 	min-width: 20%;
-}
-
-.scenario-form {
-	width: 80%;
-	max-width: 80%;
-	margin: auto;
 }
 
 .requestClassName {
@@ -42,13 +83,4 @@
 .table .th-1 {
 	text-align: center;
 	border: 1px solid #c9c7c7;
-}
-
-.rule-form {
-	width: 80%;
-	margin: auto;
-}
-
-.rule-form label {
-	color: gray;
 }
