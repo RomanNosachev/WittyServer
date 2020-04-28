@@ -2,14 +2,17 @@ package com.wittyhome.core.generator;
 
 
 import java.util.Objects;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.WebRequestDataBinder;
@@ -48,11 +51,17 @@ implements Generator<StringRequest>
 		this.requestFactory = requestFactory;
 		this.actionFactory = actionFactory;
 	}
-	
+		
 	@GetMapping({"/", "/index"})
-	public String index(Model model)
-	{		
+	public String index(@RequestParam("page") Optional<Integer> page,
+			@RequestParam("size") Optional<Integer> size,
+			Model model) {
+		int currentPage = page.orElse(1);
+		int pageSize = size.orElse(10);
+		
 		model.addAttribute("requestClasses", requestFactory.getAllRequestClasses());
+		model.addAttribute("actionClasses", actionFactory.getAllActionClasses());
+		model.addAttribute("rule", new Rule());
 		
 		var requestPrototypes = requestFactory.getAllRequests();
 		
@@ -63,10 +72,6 @@ implements Generator<StringRequest>
 			model.addAttribute(inputRequest.getClass().getSimpleName(), inputRequest);
 		});
 		
-		model.addAttribute("actionClasses", actionFactory.getAllActionClasses());
-		
-		model.addAttribute("rule", new Rule());
-		
 		var actionPrototypes = actionFactory.getAllActions();
 		
 		/*
@@ -76,9 +81,73 @@ implements Generator<StringRequest>
 			model.addAttribute(inputAction.getClass().getSimpleName(), inputAction);
 		});
 		
-		model.addAttribute("scenarios", service.findAll());
+		Page<Scenario> resultPage = service.findAll(currentPage - 1, pageSize);
+				
+		model.addAttribute("scenarios", resultPage);
+		model.addAttribute("pageNumber", resultPage.getTotalPages());
 		
 		return "index";
+	}
+	
+	@GetMapping("/editScenario/{id}")
+	public String editScenario(@PathVariable("id") String id, Model model)
+	{
+		Scenario scenario = service.findById(id);
+		
+		model.addAttribute("scenario", scenario);
+		
+		return "editScenario";
+	}
+	
+	@PostMapping("/editScenario/{id}")
+	public String editScenario(@PathVariable(value = "id", required = true) String id,
+			@RequestParam(name = "requestClassName", required = true) String requestClassName, 
+			@RequestParam(name = "actionClassName", required = true) String actionClassName,
+			@ModelAttribute("scenario") Scenario scenario, 
+			WebRequest webRequest,
+			Model model) {
+						
+		Request request = parseRequest(webRequest, requestClassName);
+		Action action = parseAction(webRequest, actionClassName);
+		
+		Task task = new Task(request, action);
+		
+		scenario.setTask(task);
+		
+		service.save(scenario);
+		
+		return "redirect:/editScenario/".concat(id);
+	}
+	
+	@GetMapping("/deleteScenario/{id}")
+	public String deleteScenario(@PathVariable(value = "id", required = true) String id, Model model)
+	{
+		service.deleteById(id);
+		
+		return "redirect:/index";
+	}
+	
+	@PostMapping("/saveScenario")
+	public String saveScenario(@RequestParam(name = "requestClassName", required = true) String requestClassName, 
+			@RequestParam(name = "actionClassName", required = true) String actionClassName,
+			@ModelAttribute("rule") Rule rule, 
+			WebRequest webRequest, Model model) {
+		
+		Request request = parseRequest(webRequest, requestClassName);
+		Action action = parseAction(webRequest, actionClassName);
+		
+		Task task = new Task(request, action);		
+		Scenario scenario = new Scenario(task, rule);
+		
+		service.save(scenario);
+		
+		return "redirect:/index";
+	}
+
+	@Override
+	public void generate(StringRequest request) 
+	{
+		dispatcher.dispatch(request);		
 	}
 	
 	private Request parseRequest(WebRequest webRequest, String requestClassName)
@@ -131,28 +200,5 @@ implements Generator<StringRequest>
 		}
 		
 		return action;
-	}
-	
-	@PostMapping("/saveScenario")
-	public String saveScenario(@RequestParam(name = "requestClassName", required = true) String requestClassName, 
-			@RequestParam(name = "actionClassName", required = true) String actionClassName,
-			@ModelAttribute("rule") Rule rule, 
-			WebRequest webRequest, Model model) {
-		
-		Request request = parseRequest(webRequest, requestClassName);
-		Action action = parseAction(webRequest, actionClassName);
-		
-		Task task = new Task(request, action);		
-		Scenario scenario = new Scenario(task, rule);
-		
-		service.save(scenario);
-		
-		return "redirect:/index";
-	}
-
-	@Override
-	public void generate(StringRequest request) 
-	{
-		dispatcher.dispatch(request);		
 	}
 }
