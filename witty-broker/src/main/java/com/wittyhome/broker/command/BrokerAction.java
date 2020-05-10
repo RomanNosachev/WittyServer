@@ -3,6 +3,7 @@ package com.wittyhome.broker.command;
 import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Component;
 
+import com.wittyhome.broker.model.MqttTopicConstraint;
 import com.wittyhome.module_base.command.Action;
 
 @Component
@@ -14,6 +15,7 @@ implements Action
 	@Id
 	private String id;
 	
+	@MqttTopicConstraint
 	private String topic;
 	private String payload;
 	private String clientId;
@@ -70,11 +72,9 @@ implements Action
 		
 		builder.append("topic: ")
 			.append(topic)
-			.append(System.lineSeparator())
-			.append("payload: ")
+			.append(" payload: ")
 			.append(payload)
-			.append(System.lineSeparator())
-			.append("clientid: ")
+			.append(" clientid: ")
 			.append(clientId);
 		
 		return builder.toString();

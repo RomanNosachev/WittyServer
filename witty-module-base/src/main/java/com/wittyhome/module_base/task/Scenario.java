@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 
 import com.wittyhome.module_base.model.Entity;
 
+@ScriptConstraint
 public class Scenario 
 implements Serializable, Entity
 {

@@ -1,5 +1,7 @@
 package com.wittyhome.speech_recognition.generator;
 
+import javax.validation.constraints.Pattern;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Component;
 
@@ -14,12 +16,10 @@ implements Request
 	@Id
 	private String id;
 	
+	@Pattern(regexp = "[\\p{L}]{1}[\\p{L} ]*[\\p{L}]")
 	private String utterance;
 	
-	public SpeechRequest()
-	{
-		
-	}
+	public SpeechRequest() {}
 	
 	public SpeechRequest(String utterance)
 	{

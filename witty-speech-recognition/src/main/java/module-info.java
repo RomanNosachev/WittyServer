@@ -13,4 +13,5 @@ module com.wittyhome.speech_recognition {
 	requires com.google.gson;
 	requires spring.web;
 	requires spring.data.commons;
+	requires java.validation;
 }

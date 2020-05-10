@@ -16,10 +16,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ClientHandshakeBroadcaster 
+public class DatagramBroadcaster 
 implements Broadcaster
 {
-	private static Logger LOG = LoggerFactory.getLogger(ClientHandshakeBroadcaster.class);
+	private static Logger LOG = LoggerFactory.getLogger(DatagramBroadcaster.class);
 	
 	private DatagramSocket socket;
 	private List<InetAddress> broadcastAddresses;

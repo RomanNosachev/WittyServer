@@ -2,10 +2,12 @@ module com.wittyhome.broker {
 	exports com.wittyhome.broker.model;
 	exports com.wittyhome.broker.generator;
 	exports com.wittyhome.broker.command;
+	exports com.wittyhome.broker.attribute;
 	
 	opens com.wittyhome.broker.generator 		to spring.core;
 	opens com.wittyhome.broker.model			to spring.core;
 	opens com.wittyhome.broker.command			to spring.core;
+	opens com.wittyhome.broker.attribute		to spring.core;
 	
 	requires transitive com.wittyhome.module_base;
 	requires transitive moquette.broker;

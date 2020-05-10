@@ -4,6 +4,20 @@
 	border-radius: 5px;
 }
 
+.lastRequest-div {
+	height: 40%;
+	padding: 1em;
+}
+
+.attribute-body {
+	font-size: xx-large;
+}
+
+.globalAttributes-div {
+	height: 40%;
+	padding: 1em;
+}
+
 #accordion {
 	background: #F9F9F9; 
 	border: 1px solid #E1E1E8; 
@@ -13,19 +27,60 @@
 	padding: 8px;
 }
 
-.editScenario-form {
+.center-form {
+	color: #fff;
+	max-width: 530px;	
+	margin: auto;
+	background-color: #343a40;
+	text-align: center;
+}
+
+*[role="form"] {
+    max-width: 530px;
+    padding: 15px;
+    margin: auto;
+    border-radius: 0.3em;
+    background-color: #f2f2f2;
+}
+
+*[role="form"] h2 { 
+    font-family: 'Open Sans' , sans-serif;
+    font-size: 40px;
+    font-weight: 600;
+    color: #000000;
+    margin-top: 5%;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+*[role="form"] .footer {
+    margin: auto;
+    text-align: center;
+}
+
+.addScenario-div {
 	width: 80%;
 	margin: auto;
 	padding-top: 1em;
 }
 
-.panel-title a {
-	color: #8f8f8f;
+.addScenario-div .alert {
+	text-align: center;
 }
 
-.scenario-form {
+.editScenario-div {
 	width: 80%;
 	margin: auto;
+	padding-top: 1em;
+}
+
+.editScenario-div .alert {
+	text-align: center;
+}
+
+.panel-title a {
+	color: #8f8f8f;
 }
 
 .tab-content {
