@@ -20,6 +20,8 @@ implements Dispatcher
 {
 	private Map<Class<? extends Action>, List<Command<? extends Action, ? extends Service>>> commandRegistry;
 	
+	private RequestRepository requestRepository;
+	
 	private Transformer transformer;
 	
 	@Autowired
@@ -27,6 +29,13 @@ implements Dispatcher
 	{
 		this.transformer = transformer;
 		commandRegistry = new HashMap<>();
+	}
+	
+	@Autowired
+	@Override
+	public void setRequestRepository(RequestRepository requestRepository) 
+	{
+		this.requestRepository = requestRepository;
 	}
 	
 	@Autowired
@@ -50,6 +59,8 @@ implements Dispatcher
 	public <R extends Request> void dispatch(R request) 
 	{
 		var actions = transformer.findActionsByRequest(request);
+		
+		requestRepository.save(request);
 		
 		actions.forEach(action -> {
 			var commands = commandRegistry.get(action.getClass());

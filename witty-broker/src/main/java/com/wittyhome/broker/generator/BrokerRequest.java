@@ -3,6 +3,7 @@ package com.wittyhome.broker.generator;
 import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Component;
 
+import com.wittyhome.broker.model.MqttTopicConstraint;
 import com.wittyhome.module_base.generator.Request;
 
 @Component
@@ -14,8 +15,9 @@ implements Request
 	@Id
 	private String id;
 	
+	@MqttTopicConstraint
 	private String topic;
-	private String payload;
+	private String payload;	
 	private String clientId;
 	
 	public BrokerRequest()
@@ -73,11 +75,9 @@ implements Request
 		
 		builder.append("topic: ")
 			.append(topic)
-			.append(System.lineSeparator())
-			.append("payload: ")
+			.append(" payload: ")
 			.append(payload)
-			.append(System.lineSeparator())
-			.append("clientid: ")
+			.append(" clientid: ")
 			.append(clientId);
 		
 		return builder.toString();
