@@ -1,5 +1,7 @@
 package com.wittyhome.core.generator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -86,7 +88,7 @@ implements Generator<StringRequest>
 				
 		model.addAttribute("scenarios", resultPage);
 		model.addAttribute("pageNumber", resultPage.getTotalPages());
-				
+		
 		return "scenario";
 	}
 	
@@ -115,7 +117,7 @@ implements Generator<StringRequest>
 		actionPrototypes.forEach(inputAction -> {
 			model.addAttribute(inputAction.getClass().getSimpleName(), inputAction);
 		});
-		
+				
 		return "addScenario";
 	}
 	
@@ -125,6 +127,7 @@ implements Generator<StringRequest>
 		Scenario scenario = service.findById(id);
 		
 		model.addAttribute("scenario", scenario);
+		model.addAttribute("groups", service.findAllGroup());
 		
 		return "editScenario";
 	}
@@ -171,15 +174,19 @@ implements Generator<StringRequest>
 			return onAddScenarioValidationError(scenario, errorMessage, model);
 		}
 						
-		service.save(scenario);
+		Scenario savedScenario = service.save(scenario);
+		
+		if (Objects.nonNull(savedScenario) && !savedScenario.getId().isBlank()) {
+			return "redirect:/editScenario/".concat(scenario.getId());
+		}
 		
 		return "redirect:/scenario";
 	}
 
-	@PostMapping("/editScenario/{id}")
-	public String editScenario(@PathVariable(value = "id", required = true) String id,
-			@RequestParam(name = "requestClassName", required = true) String requestClassName, 
+	@PostMapping("/editScenario")
+	public String editScenario(@RequestParam(name = "requestClassName", required = true) String requestClassName, 
 			@RequestParam(name = "actionClassName", required = true) String actionClassName,
+			@RequestParam(name = "group") String group,
 			@ModelAttribute("scenario") Scenario scenario, 
 			WebRequest webRequest,
 			RedirectAttributes redirectAttributes,
@@ -191,6 +198,18 @@ implements Generator<StringRequest>
 		Task task = new Task(request, action);
 		
 		scenario.setTask(task);
+		
+		if (Objects.nonNull(group) && !group.isBlank()) 
+		{
+			List<String> groups = scenario.getGroups();
+			
+			if (Objects.isNull(groups)) {
+				groups = new ArrayList<String>();
+			}
+			
+			groups.add(group);
+			scenario.setGroups(groups);
+		}
 		
 		ObjectError validationError = validateScenario(scenario, result);
 		
@@ -213,10 +232,26 @@ implements Generator<StringRequest>
 		return "redirect:/editScenario/".concat(scenario.getId());
 	}
 	
-	@GetMapping("/deleteScenario/{id}")
-	public String deleteScenario(@PathVariable(value = "id", required = true) String id, Model model)
+	@PostMapping("/deleteScenario")
+	public String deleteScenario(@RequestParam(name = "id", required = true) String id, Model model)
 	{
 		service.deleteById(id);
+		
+		return "redirect:/scenario";
+	}
+	
+	@PostMapping("/disableScenario")
+	public String disableScenario(@RequestParam(name = "id", required = true) String id, Model model)
+	{
+		service.disableById(id);
+		
+		return "redirect:/scenario";
+	}
+	
+	@PostMapping("/enableScenario")
+	public String enableScenario(@RequestParam(name = "id", required = true) String id, Model model)
+	{
+		service.enableById(id);
 		
 		return "redirect:/scenario";
 	}

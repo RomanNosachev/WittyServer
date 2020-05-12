@@ -1,15 +1,18 @@
 package com.wittyhome.module_base.task;
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.NoRepositoryBean;
-import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.repository.query.QueryByExampleExecutor;
+import java.util.List;
 
-@NoRepositoryBean
 public interface ScenarioRepository
-extends CrudRepository<Scenario, String>,
-PagingAndSortingRepository<Scenario, String>,
-QueryByExampleExecutor<Scenario>
 {
+	List<Scenario> findByGroup(String group);
+	List<String> findAllGroup();
+	List<GroupDetails> groupFrequency();
 	
+	public void addGroupById(String id, String group);
+	
+	public void setEnabledGroup(String group, boolean enabled);
+	public void deleteGroup(String group);
+	public void leaveGroup(String id, String group);
+	
+	void setEnabledById(String id, boolean enabled);
 }

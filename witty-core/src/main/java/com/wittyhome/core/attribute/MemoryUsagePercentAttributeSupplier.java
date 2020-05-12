@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import com.wittyhome.module_base.attribute.AttributeSupplier;
 
 @Component
-public class MemoryUsagePercentAttributeSupplyer 
+public class MemoryUsagePercentAttributeSupplier 
 implements AttributeSupplier<Integer>
 {
 	@Override

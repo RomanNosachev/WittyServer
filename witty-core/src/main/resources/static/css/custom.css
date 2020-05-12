@@ -9,6 +9,10 @@
 	padding: 1em;
 }
 
+.card-header.enabled {
+	background-color: #adffba;
+}
+
 .attribute-body {
 	font-size: xx-large;
 }

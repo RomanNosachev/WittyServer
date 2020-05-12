@@ -23,4 +23,6 @@ module com.wittyhome.module_base {
 	
 	requires transitive java.validation;
 	requires transitive spring.data.commons;
+	requires spring.data.mongodb;
+	requires org.mongodb.driver.core;
 }

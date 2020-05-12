@@ -48,6 +48,7 @@
 						<div class="dropdown-menu active" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="#">Add scenario</a> 
 						</div>
+						<a class="btn btn-link nav-link" href="./group.html" th:href="@{/group}">Group</a>
 					</div>
 				</li>
 			</ul>		
@@ -151,6 +152,7 @@
 				<input type="text" class="form-control" id="brokerActionClientIdInput" 
 				th:name="BrokerAction.clientId" th:value="${BrokerAction.clientId}">	
 			</div>
+			
 			<button class="btn btn-outline-success my-2 my-sm-0" id="request-button" type="submit">Save</button>
 		</form>
 	</div>

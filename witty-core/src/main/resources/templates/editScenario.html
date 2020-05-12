@@ -48,6 +48,7 @@
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="./addScenario.html" th:href="@{/addScenario}">Add scenario</a> 
 						</div>
+						<a class="btn btn-link nav-link" href="./group.html" th:href="@{/group}">Group</a>
 					</div>
 				</li>
 			</ul>				
@@ -64,7 +65,8 @@
 
 	<div class="editScenario-div">
 		<div class="alert alert-warning" role="alert" th:if="${errorMessage}" th:text="${errorMessage}"></div>
-		<form th:action="@{/editScenario/{id}(id=${scenario.id})}" class="editScenario-form" id="scenario-form" method="post">
+		<form th:action="@{/editScenario}" class="editScenario-form" id="scenario-form" method="post">
+			<input type="hidden" th:field="${scenario.id}"></input>
 			<div class="requestType-div">
 				<label for="requestType-select">Request type:</label>
 				<select class="form-control" id="requestType-select" name="requestClassName" th:name="requestClassName" readonly>
@@ -142,6 +144,35 @@
 					<input type="text" class="form-control" id="brokerActionClientIdInput" 
 					th:name="BrokerAction.clientId" th:value="${scenario.task.action.clientId}">	
 				</div>
+			</div>
+			<div class="form-check enabled-div">
+			  <input class="form-check-input" type="checkbox" th:field="${scenario.enabled}" id="defaultCheck1">	  
+			  <label class="form-check-label" for="defaultCheck1">
+				Enabled
+			  </label>
+			</div>
+			<div class="groups-div">
+				<label class="form-check-label" for="group-div" th:if="${scenario.groups}">
+					Groups:
+				</label>
+				<input class="form-control" id="group-div" type="text" th:each="group, stat: ${scenario.groups}" 
+				th:name="|groups[${stat.index}]|" th:value="${group}"></input>
+				<label class="form-check-label" for="group-div">
+					Add group:
+				</label>
+				<input class="form-control" id="group-div" type="text" list="groups" th:name="group"></input>
+				<datalist id="groups">
+				  <option class="form-control" th:each="group: ${groups}" th:value="${group}" th:utext="${group}"></option>
+				</datalist>
+				<!--
+				<label class="form-check-label" for="group-div">
+					Add group:
+				</label>
+				<input class="form-control" type="text" list="groups" name="group"/>
+				<datalist id="groups">
+				  <option class="form-control" th:each="group: ${groups}" th:value="${group}" th:utext="${group}"></option>
+				</datalist>
+				-->
 			</div>
 
 			<button class="btn btn-outline-success my-2 my-sm-0" id="request-button" type="submit">Save</button>
