@@ -13,7 +13,6 @@ import com.wittyhome.module_base.command.Action;
 import com.wittyhome.module_base.generator.Request;
 import com.wittyhome.module_base.task.RuleEngine;
 import com.wittyhome.module_base.task.Scenario;
-import com.wittyhome.module_base.task.ScenarioRepository;
 import com.wittyhome.module_base.task.Task;
 import com.wittyhome.module_base.task.Transformer;
 
@@ -23,12 +22,12 @@ implements Transformer
 {
 	private static Logger LOG = LoggerFactory.getLogger(BaseTransformer.class);
 	
-	private ScenarioRepository repository;
+	private BaseScenarioRepository repository;
 	
 	private RuleEngine engine;
 	
 	@Autowired
-	public BaseTransformer(ScenarioRepository repository, RuleEngine engine) 
+	public BaseTransformer(BaseScenarioRepository repository, RuleEngine engine) 
 	{
 		this.repository = repository;
 		this.engine = engine;
@@ -45,6 +44,7 @@ implements Transformer
 		List<Scenario> scenarios = (List<Scenario>) repository.findAll(example);
 
 		List<Action> actions = scenarios.stream()
+				.filter(scenario -> scenario.isEnabled())
 				.filter(scenario -> engine.evalRule(scenario))
 				.map(scenario -> scenario.getTask().getAction())
 				.collect(Collectors.toList());

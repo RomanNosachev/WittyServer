@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>WittyHome</title>
+<title>WittyHome | Group</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
 
@@ -27,7 +27,7 @@
 		crossorigin="anonymous"></script>
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="#">WittyHome</a>
+		<a class="navbar-brand" href="./index.html" th:href="@{/index}">WittyHome</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
 			aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -48,57 +48,42 @@
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="./addScenario.html" th:href="@{/addScenario}">Add scenario</a> 
 						</div>
-						<a class="btn btn-link nav-link" href="./group.html" th:href="@{/group}">Group</a>
+						<a class="btn btn-link nav-link active" href="#">Group</a>
 					</div>
 				</li>
 			</ul>				
 			<a class="icon nav-link p-2" href="https://github.com/RomanNosachev/WittyServer" target="_blank" rel="noopener" aria-label="Git">
 				<img src="../static/img/github-white.svg" th:src="@{/img/github-white.svg}" alt="Git">
 			</a>
-			
+    
 			<div class="user btn-group form-inline my-2 my-lg-0" th:if="${session.username} and ${session.username} != 'anonymousUser'"> 
 				<input class="form-control" type="text" th:value="${session.username}" readonly>
 				<a class="btn btn-primary" href="./logout.html" th:href="@{/logout}" role="button">Logout</a>
 			</div>
-			<div class="user btn-group form-inline my-2 my-lg-0" th:unless="${session.username} and ${session.username} != 'anonymousUser'">
-			  <a type="button" class="btn btn-primary" href="./login.html" th:href="@{/login}">Sign in</a>
-			  <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" 
-			  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<span class="sr-only">Toggle Dropdown</span>
-			  </button>
-			  <div class="dropdown-menu dropdown-menu-right">
-				<a class="dropdown-item" href="./registration.html" th:href="@{/registration}">Sign up</a>
-			  </div>
-			</div>
 		</div>
 	</nav>
-	
-	<div class="container lastRequest-div">
-		<h2>Last requests:</h2>
-		<div class="row">
-				<div class="col-md-4" th:each="request: ${requests}">
+
+	<div class="container">
+			<div class="row">
+				<div class="col-md-4" th:each="group: ${groups}">
 				  <div class="card mb-4 box-shadow">
-					<div class="card-header" th:text="${request.id}"></div>
+					<div class="card-header" th:text="${group.id}"></div>
 					<div class="card-body">
-					  <h5 class="card-subtitle mb-2 text-muted" th:text="${request.class.simpleName}"></h5>
-					  <p class="card-text" th:text="${request}"></p>
+					  <h5 class="card-subtitle mb-2 text-muted">Total scenario:</h5>
+					  <p class="card-text" th:text="${group.total}"></p>
+					  <div class="d-flex justify-content-between align-items-center">
+						<div class="btn-group">
+						  <a class="viewGroup-button btn btn-sm btn-outline-secondary"
+						  th:href="@{/group/{id}(id=${group.id})}">View</a>					
+						</div>
+					  </div>
 					</div>
+				  </div>
 				</div>
+			</div>
 		</div>
-	</div>
-	<div class="container globalAtributes-div">
-		<h2>Global attributes:</h2>
-		<div class="row">
-				<div class="col-md-4" th:each="attribute: ${attributes}">
-				  <div class="card mb-4 box-shadow">
-					<div class="card-header" th:text="${attribute.key}"></div>
-					<div class="card-body attribute-body">
-					  <p class="card-text" th:text="${attribute.value}"></p>
-					</div>
-				</div>
-		</div>
-	</div>
 	
+	<script type="text/javascript" src="../static/js/main.js" th:src="@{/js/main.js}"></script>
 </body>
 
 </html>

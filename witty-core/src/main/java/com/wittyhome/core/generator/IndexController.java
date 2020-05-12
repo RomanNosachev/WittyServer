@@ -3,6 +3,7 @@ package com.wittyhome.core.generator;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +27,7 @@ public class IndexController
 	@GetMapping({"/", "/index"})
 	public String displayIndexPage(Model model, HttpSession session)
 	{		
-		model.addAttribute("requests", requestRepository.findAll());
+		model.addAttribute("requests", requestRepository.findAll(PageRequest.of(0, 9)));
 		model.addAttribute("attributes", attributeRegistry.findAll());
 		
 		return "index";

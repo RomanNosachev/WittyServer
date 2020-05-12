@@ -1,6 +1,7 @@
 package com.wittyhome.module_base.task;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 
@@ -15,20 +16,30 @@ implements Serializable, Entity
 	@Id
 	private String id;
 	
-	private Task task;
-	private Rule rule;
+	private boolean enabled;
 	
+	@GroupConstraint
+	private List<String> groups;
+	
+	private Task task;
+	
+	private Rule rule;
+		
 	public Scenario() {}
 	
 	public Scenario(Task task)
 	{
 		this.task = task;
+		
+		this.enabled = false;
 	}
 	
 	public Scenario(Task task, Rule rule) 
 	{
 		this.setTask(task);
 		this.setRule(rule);
+		
+		this.enabled = false;
 	}
 
 	public void setId(String id)
@@ -59,5 +70,25 @@ implements Serializable, Entity
 	public void setRule(Rule rule) 
 	{
 		this.rule = rule;
+	}
+
+	public boolean isEnabled() 
+	{
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) 
+	{
+		this.enabled = enabled;
+	}
+
+	public List<String> getGroups() 
+	{
+		return groups;
+	}
+	
+	public void setGroups(List<String> groups) 
+	{
+		this.groups = groups;
 	}
 }

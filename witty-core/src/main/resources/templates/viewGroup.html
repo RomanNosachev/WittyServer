@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>WittyHome | Scenario</title>
+<title>WittyHome | Group</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
 
@@ -39,7 +39,7 @@
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active dropdown">
 					<div class="btn-group">
-						<a class="btn btn-link nav-link active" href="#">Scenario</a>
+						<a class="btn btn-link nav-link" href="./scenario.html" th:href="@{/scenario}">Scenario</a>
 						<a class="btn btn-link nav-link dropdown-toggle dropdown-toggle-split" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false">
@@ -63,22 +63,24 @@
 		</div>
 	</nav>
 
-	<div class="scenario-div" id="view">
-		<div class="panel-group" id="accordion">
-		  <div class="panel panel-default">
-			<div class="panel-heading">
-			  <h4 class="panel-title">
-				<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">&#9660; Filter</a>
-			  </h4>
-			</div>
-			<div id="collapseOne" class="panel-collapse collapse in">
-			  <div class="panel-body">
-				<p>No filter</p>
-			  </div>
-			</div>
-		  </div>
+	<div class="d-flex justify-content-between align-items-center">
+		<div class="btn-group">	
+			<form th:action="@{/disableGroup}" method="post">
+				<input type="hidden" name="group" th:value="${group}"></input> 
+				<button class="disableGroup-button btn btn-sm btn-outline-secondary">Disable all</button>
+			</form>  
+			<form th:action="@{/enableGroup}" method="post">
+				<input type="hidden" name="group" th:value="${group}"></input> 
+				<button class="enableGroup-button btn btn-sm btn-outline-secondary">Enable all</button>
+			</form>				 
+			<form th:action="@{/deleteGroup}" method="post">
+				<input type="hidden" name="group" th:value="${group}"></input> 
+				<button class="deleteGroup-button btn btn-sm btn-outline-secondary">Delete group</button>
+			</form>
 		</div>
-		<div class="container">
+	</div>				
+
+	<div class="container">
 			<div class="row">
 				<div class="col-md-4" th:each="scenario: ${scenarios}">
 				  <div class="card mb-4 box-shadow">
@@ -107,13 +109,11 @@
 							<input type="hidden" name="id" th:value="${scenario.id}"></input> 
 							<button class="deleteScenario-button btn btn-sm btn-outline-secondary">Delete</button>
 						 </form>
-						 
-						  <!--
-						  <a class="deleteScenario-button btn btn-sm btn-outline-secondary" 
-						  th:href="@{/deleteScenario/{id}(id=${scenario.id})}">Delete</a>
-						  <a class="disableScenario-button btn btn-sm btn-outline-secondary"
-						  th:href="@{/editScenario/{id}(id=${scenario.id})}">Edit</a>
-						  -->
+						 <form th:action="@{/leaveGroup}" method="post">
+						 	<input type="hidden" name="group" th:value="${group}"></input> 
+							<input type="hidden" name="id" th:value="${scenario.id}"></input> 
+							<button class="leaveScenario-button btn btn-sm btn-outline-secondary">Leave</button>
+						 </form>
 						</div>
 					  </div>
 					</div>
@@ -121,27 +121,6 @@
 				</div>
 			</div>
 		</div>
-		
-		<nav th:if="${pageNumber > 1}">
-			<ul class="pagination justify-content-center">
-				<li class="page-item" th:classappend="${scenarios.number + 1 > 1} ? enabled : disabled">
-					<a class="page-link" 
-					th:href="@{/scenario/(size=${scenarios.size}, page='1')}">First</a></li>
-				<li class="page-item" th:classappend="${scenarios.number + 1 > 1} ? enabled : disabled">
-					<a class="page-link" 
-					th:href="@{/scenario/(size=${scenarios.size}, page=${scenarios.number})}">Prev</a></li>
-				<li class="page-item active">
-					<a class="page-link" th:href="@{/scenario/(size=${scenarios.size}, page=${scenarios.number})}"
-					th:text="${scenarios.number + 1}"></a></li>
-				<li class="page-item" th:classappend="${scenarios.number + 1 < pageNumber} ? enabled : disabled">
-					<a class="page-link" 
-					th:href="@{/scenario/(size=${scenarios.size}, page=${scenarios.number + 2})}">Next</a></li>
-				<li class="page-item" th:classappend="${scenarios.number + 1 < pageNumber} ? enabled : disabled">
-					<a class="page-link" 
-					th:href="@{/scenario/(size=${scenarios.size}, page=${pageNumber})}" >Last</a></li>
-			</ul>
-		</nav>
-	</div>
 	
 	<script type="text/javascript" src="../static/js/main.js" th:src="@{/js/main.js}"></script>
 </body>
