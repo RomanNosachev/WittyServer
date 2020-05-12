@@ -40,7 +40,7 @@
 				<li class="nav-item active dropdown">
 					<div class="btn-group">
 						<a class="btn btn-link nav-link" href="./scenario.html" th:href="@{/scenario}">Scenario</a>
-						<a class="btn btn-link nav-link dropdown-toggle dropdown-toggle-split" href="#" id="navbarDropdown"
+						<a th:if="${session.admin}" class="btn btn-link nav-link dropdown-toggle dropdown-toggle-split" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false">
 							<span class="sr-only">Scenario</span>
