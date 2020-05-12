@@ -19,4 +19,5 @@ module com.wittyhome.broker {
 	requires spring.context;
 	requires spring.beans;
 	requires spring.data.commons;
+	requires transitive spring.data.mongodb;
 }

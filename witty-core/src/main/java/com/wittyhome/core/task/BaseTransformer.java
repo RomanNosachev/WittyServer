@@ -38,13 +38,13 @@ implements Transformer
 	{
 		Task exampleTask = new Task(request);
 		Scenario exampleScenario = new Scenario(exampleTask);
+		exampleScenario.setEnabled(true);
 		
 		Example<Scenario> example = Example.of(exampleScenario);
 				
 		List<Scenario> scenarios = (List<Scenario>) repository.findAll(example);
 
 		List<Action> actions = scenarios.stream()
-				.filter(scenario -> scenario.isEnabled())
 				.filter(scenario -> engine.evalRule(scenario))
 				.map(scenario -> scenario.getTask().getAction())
 				.collect(Collectors.toList());
