@@ -1,5 +1,8 @@
 package com.wittyhome.core.generator;
 
+import java.util.Date;
+
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +16,9 @@ implements Request
 
 	@Id
 	private String id;
+	
+	@CreatedDate
+	private Date createdDate;
 	
 	private String text;
 	
@@ -63,5 +69,17 @@ implements Request
 	public String getId() 
 	{
 		return id;
+	}
+
+	@Override
+	public Date getCreatedDate() 
+	{
+		return createdDate;
+	}
+
+	@Override
+	public void setCreatedDate(Date date) 
+	{
+		this.createdDate = date;
 	}
 }

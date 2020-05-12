@@ -40,7 +40,7 @@
 				<li class="nav-item active dropdown">
 					<div class="btn-group">
 						<a class="btn btn-link nav-link active" href="#">Scenario</a>
-						<a class="btn btn-link nav-link dropdown-toggle dropdown-toggle-split" href="#" id="navbarDropdown"
+						<a th:if="${session.admin}" class="btn btn-link nav-link dropdown-toggle dropdown-toggle-split" href="#" id="navbarDropdown"
 						role="button" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false">
 							<span class="sr-only">Scenario</span>
@@ -93,7 +93,7 @@
 					  <p class="card-text" th:text="${scenario.task.action}"></p>
 					  <div class="d-flex justify-content-between align-items-center">
 						<div class="btn-group">
-						  <a class="editScenario-button btn btn-sm btn-outline-secondary"
+						  <a th:if="${session.admin}" class="editScenario-button btn btn-sm btn-outline-secondary"
 						  th:href="@{/editScenario/{id}(id=${scenario.id})}">Edit</a>					
 						  <form th:if="${scenario.enabled}" th:action="@{/disableScenario}" method="post">
 							<input type="hidden" name="id" th:value="${scenario.id}"></input> 
@@ -103,7 +103,7 @@
 							<input type="hidden" name="id" th:value="${scenario.id}"></input> 
 							<button class="enableScenario-button btn btn-sm btn-outline-secondary">Enable</button>
 						  </form>				 
-						 <form th:action="@{/deleteScenario}" method="post">
+						 <form th:if="${session.admin}" th:action="@{/deleteScenario}" method="post">
 							<input type="hidden" name="id" th:value="${scenario.id}"></input> 
 							<button class="deleteScenario-button btn btn-sm btn-outline-secondary">Delete</button>
 						 </form>

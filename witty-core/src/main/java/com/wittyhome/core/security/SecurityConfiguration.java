@@ -52,26 +52,32 @@ extends WebSecurityConfigurerAdapter
                 .csrf()
                     .disable()
                 .authorizeRequests()
-                    //Доступ только для не зарегистрированных пользователей
                     .antMatchers("/registration").not().fullyAuthenticated()
-                    //Доступ только для пользователей с ролью Администратор
                     
                     .antMatchers("/scenario/**").hasRole("USER")
+                    .antMatchers("/group/**").hasRole("USER")
+                    
+                    .antMatchers("/enableScenario/**").hasRole("USER")
+                    .antMatchers("/disableScenario/**").hasRole("USER")
+                    
+                    .antMatchers("/enableGroup/**").hasRole("USER")
+                    .antMatchers("/disableGroup/**").hasRole("USER")
                     
                     .antMatchers("/addScenario/**").hasRole("ADMIN")
                     .antMatchers("/saveScenario/**").hasRole("ADMIN")
                     .antMatchers("/editScenario/**").hasRole("ADMIN")
                     .antMatchers("/deleteScenario/**").hasRole("ADMIN")
-                    //Доступ разрешен всем пользователей
+                    
+                    .antMatchers("/deleteGroup/**").hasRole("ADMIN")
+                    .antMatchers("/leaveGroup/**").hasRole("ADMIN")
+                    
                     .antMatchers("/", "index", "/resources/**").permitAll()
                     .antMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                //Все остальные страницы требуют аутентификации
+                    
                 .anyRequest().authenticated()
                 .and()
-                    //Настройка для входа в систему
                     .formLogin()
                     .loginPage("/login")
-                    //Перенаправление на главную страницу после успешного входа
                     .successHandler(customAuthenticationSuccessHandler())
                     .permitAll()
                 .and()

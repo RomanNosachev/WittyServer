@@ -13,5 +13,5 @@ extends CrudRepository<Request, String>,
 PagingAndSortingRepository<Request, String>,
 QueryByExampleExecutor<Request>
 {
-
+	
 }

@@ -65,6 +65,6 @@ public class AttributeRegistryTest
 		
 		Integer parsedMemoryPercent = (Integer) map.get("globalInteger.memoryUsagePercent");
 		
-		assertEquals(memoryPercent.longValue(), parsedMemoryPercent.longValue());
+		assertEquals(memoryPercent.longValue(), parsedMemoryPercent.longValue(), 5);
 	}
 }
