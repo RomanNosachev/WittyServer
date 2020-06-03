@@ -27,6 +27,23 @@ public class UserController
 		this.encoder = encoder;
 	}
 
+	@GetMapping("/user")
+	public String displayUser(Model model)
+	{
+		model.addAttribute("users", userService.findAll());
+		model.addAttribute("userForm", new UserForm());
+				
+		return "user";
+	}
+	
+	@PostMapping("/editUser")
+	public String editUser(@ModelAttribute("userForm") UserForm userForm, Model model)
+	{
+		userService.updateRoles(userForm.getUser());
+		
+		return "redirect:/user";
+	}
+	
 	@GetMapping("/registration")
 	public String registration(Model model)
 	{

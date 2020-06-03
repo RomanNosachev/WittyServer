@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>WittyHome</title>
+<title>WittyHome | Пользователь</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
 
@@ -15,7 +15,7 @@
 
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<a class="navbar-brand" href="#">WittyHome</a>
+		<a class="navbar-brand" href="./index.html" th:href="@{/index}">WittyHome</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
 			aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -28,7 +28,7 @@
 				<li class="nav-item active dropdown">
 					<div class="btn-group">
 						<a class="btn btn-link nav-link" href="./scenario.html"
-							th:href="@{/scenario}">Сценарии</a> <a th:if="${session.admin}"
+							th:href="@{/scenario}">Сценарий</a> <a th:if="${session.admin}"
 							class="btn btn-link nav-link dropdown-toggle dropdown-toggle-split"
 							href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
 							aria-haspopup="true" aria-expanded="false"> <span
@@ -39,9 +39,8 @@
 								th:href="@{/addScenario}">Добавить сценарий</a>
 						</div>
 						<a class="btn btn-link nav-link" href="./group.html"
-							th:href="@{/group}">Группы</a> <a class="btn btn-link nav-link"
-							th:if="${session.superadmin}" href="./user.html"
-							th:href="@{/user}">Пользователи</a>
+							th:href="@{/group}">Группы</a> <a
+							class="btn btn-link nav-link active" href="#">Пользователи</a>
 					</div>
 				</li>
 			</ul>
@@ -57,51 +56,46 @@
 				<input class="form-control" type="text"
 					th:value="${session.username}" readonly> <a
 					class="btn btn-primary" href="./logout.html" th:href="@{/logout}"
-					role="button">Выход</a>
-			</div>
-			<div class="user btn-group form-inline my-2 my-lg-0"
-				th:unless="${session.username} and ${session.username} != 'anonymousUser'">
-				<a type="button" class="btn btn-primary" href="./login.html"
-					th:href="@{/login}">Войти</a>
-				<button type="button"
-					class="btn btn-primary dropdown-toggle dropdown-toggle-split"
-					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<span class="sr-only">Toggle Dropdown</span>
-				</button>
-				<div class="dropdown-menu dropdown-menu-right">
-					<a class="dropdown-item" href="./registration.html"
-						th:href="@{/registration}">Зарегистрироваться</a>
-				</div>
+					role="button">Выйти</a>
 			</div>
 		</div>
 	</nav>
 
-	<div class="container lastRequest-div">
-		<h2>Последние запросы:</h2>
-		<div class="row">
-			<div class="col-md-4" th:each="request: ${requests}">
-				<div class="card mb-4 box-shadow">
-					<div class="card-header" th:text="${request.id}"></div>
-					<div class="card-body">
-						<h5 class="card-subtitle mb-2 text-muted"
-							th:text="${request.class.simpleName}"></h5>
-						<p class="card-text" th:text="${request}"></p>
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
+				<tr>
+					<th class="username-th">Пользователь</th>
+					<th class="save-th">Роль</th>
+				</tr>
+			</thead>
+		</table>
 	</div>
-	<div class="container globalAtributes-div">
-		<h2>Глобальные атрибуты:</h2>
-		<div class="row">
-			<div class="col-md-4" th:each="attribute: ${attributes}">
-				<div class="card mb-4 box-shadow">
-					<div class="card-header" th:text="${attribute.key}"></div>
-					<div class="card-body attribute-body">
-						<p class="card-text" th:text="${attribute.value}"></p>
-					</div>
+
+	<div class="container">
+		<div class="" th:each="user: ${users}">
+			<form class="row" th:id="${user.id}" th:action="@{/editUser}"
+				th:object="${userForm}" method="post">
+				<div class="col-sm">
+					<input type="hidden" name="user.id" th:value="${user.id}"
+						th:form="${user.id}"></input> <input type="text"
+						name="user.username" class="username-input" th:form="${user.id}"
+						th:value="${user.username}" readonly></input>
 				</div>
-			</div>
+				<div class="col-sm">
+					<select th:form="${user.id}" name="roleName"
+						th:with="roles = ${user.roleNames}">
+						<option value="ROLE_USER">User</option>
+
+						<option value="ROLE_ADMIN"
+							th:selected="${#lists.contains(roles, 'ROLE_ADMIN')}">Admin</option>
+						<option value="ROLE_SUPERADMIN"
+							th:selected="${#lists.contains(roles, 'ROLE_SUPERADMIN')}">Superadmin</option>
+					</select>
+					<button th:form="${user.id}" type="submit"
+						class="btn btn-primary user-button">Сохранить</button>
+				</div>
+			</form>
 		</div>
 	</div>
 

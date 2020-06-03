@@ -359,6 +359,18 @@ implements Generator<StringRequest>
 	
 	private ObjectError validateScenario(Scenario scenario, BindingResult result)
 	{
+		Task task = scenario.getTask();
+		
+		if (Objects.nonNull(task))
+		{
+			Request request = task.getRequest();
+			Action action = task.getAction();
+			
+			validator.validate(request, result);
+			validator.validate(action, result);
+
+		}
+				
 		validator.validate(scenario, result);
 		
 		if (result.hasErrors()) 

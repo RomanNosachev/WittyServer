@@ -2,30 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>WittyHome | Edit scenario</title>
+<title>WittyHome | Редактировать сценарий</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
 
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="../static/css/custom.css" th:href="@{/css/custom.css}">
+<link rel="stylesheet" type="text/css"
+	href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css" href="../static/css/custom.css"
+	th:href="@{/css/custom.css}">
 </head>
 
 <body>
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-		crossorigin="anonymous"></script>
-
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<a class="navbar-brand" href="./index.html" th:href="@{/index}">WittyHome</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -39,130 +27,161 @@
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item active dropdown">
 					<div class="btn-group">
-						<a class="btn btn-link nav-link" href="./scenario.html" th:href="@{/scenario}">Scenario</a>
-						<a class="btn btn-link nav-link dropdown-toggle dropdown-toggle-split" href="#" id="navbarDropdown"
-						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false">
-							<span class="sr-only">Scenario</span>
+						<a class="btn btn-link nav-link" href="./scenario.html"
+							th:href="@{/scenario}">Сценарии</a> <a
+							class="btn btn-link nav-link dropdown-toggle dropdown-toggle-split"
+							href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false"> <span
+							class="sr-only">Scenario</span>
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="./addScenario.html" th:href="@{/addScenario}">Add scenario</a> 
+							<a class="dropdown-item" href="./addScenario.html"
+								th:href="@{/addScenario}">Добавить сценарий</a>
 						</div>
-						<a class="btn btn-link nav-link" href="./group.html" th:href="@{/group}">Group</a>
+						<a class="btn btn-link nav-link" href="./group.html"
+							th:href="@{/group}">Группы</a> <a class="btn btn-link nav-link"
+							th:if="${session.superadmin}" href="./user.html"
+							th:href="@{/user}">Пользователи</a>
 					</div>
 				</li>
-			</ul>				
-			<a class="icon nav-link p-2" href="https://github.com/RomanNosachev/WittyServer" target="_blank" rel="noopener" aria-label="Git">
-				<img src="../static/img/github-white.svg" th:src="@{/img/github-white.svg}" alt="Git">
+			</ul>
+			<a class="icon nav-link p-2"
+				href="https://github.com/RomanNosachev/WittyServer" target="_blank"
+				rel="noopener" aria-label="Git"> <img
+				src="../static/img/github-white.svg"
+				th:src="@{/img/github-white.svg}" alt="Git">
 			</a>
-    
-			<div class="user btn-group form-inline my-2 my-lg-0" th:if="${session.username} and ${session.username} != 'anonymousUser'"> 
-				<input class="form-control" type="text" th:value="${session.username}" readonly>
-				<a class="btn btn-primary" href="./logout.html" th:href="@{/logout}" role="button">Logout</a>
+
+			<div class="user btn-group form-inline my-2 my-lg-0"
+				th:if="${session.username} and ${session.username} != 'anonymousUser'">
+				<input class="form-control" type="text"
+					th:value="${session.username}" readonly> <a
+					class="btn btn-primary" href="./logout.html" th:href="@{/logout}"
+					role="button">Выход</a>
 			</div>
 		</div>
 	</nav>
 
 	<div class="editScenario-div">
-		<div class="alert alert-warning" role="alert" th:if="${errorMessage}" th:text="${errorMessage}"></div>
-		<form th:action="@{/editScenario}" class="editScenario-form" id="scenario-form" method="post">
+		<div class="alert alert-warning" role="alert" th:if="${errorMessage}"
+			th:text="${errorMessage}"></div>
+		<form th:action="@{/editScenario}" class="editScenario-form"
+			id="scenario-form" method="post">
 			<input type="hidden" th:field="${scenario.id}"></input>
 			<div class="requestType-div">
-				<label for="requestType-select">Request type:</label>
-				<select class="form-control" id="requestType-select" name="requestClassName" th:name="requestClassName" readonly>
-					<option th:value="${scenario.task.request.class.name}" 
-					th:utext="${scenario.task.request.class.simpleName}" selected></option>
+				<label for="requestType-select">Тип запроса:</label> <select
+					class="form-control" id="requestType-select"
+					name="requestClassName" th:name="requestClassName" readonly>
+					<option th:value="${scenario.task.request.class.name}"
+						th:utext="${scenario.task.request.class.simpleName}" selected></option>
 				</select>
 			</div>
-				
-			<div class="requestType-switch" th:switch="${scenario.task.request.class.simpleName}">
-				<div class="request-div" th:case="'StringRequest'" name="StringRequest-div" id="StringRequest-div">
-					<label for="stringRequestTextInput">Text</label>
-					<input type="text" class="form-control" id="stringRequestTextInput" 
-					th:name="StringRequest.text" th:value="${scenario.task.request.text}">
+
+			<div class="requestType-switch"
+				th:switch="${scenario.task.request.class.simpleName}">
+				<div class="request-div" th:case="'StringRequest'"
+					name="StringRequest-div" id="StringRequest-div">
+					<label for="stringRequestTextInput">Текст</label> <input
+						type="text" class="form-control" id="stringRequestTextInput"
+						th:name="StringRequest.text"
+						th:value="${scenario.task.request.text}">
 				</div>
-				<div class="request-div" th:case="'SpeechRequest'" name="SpeechRequest-div" id="SpeechRequest-div">
-					<label for="speechRequestUtteranceInput">Utterance</label>
-					<input type="text" class="form-control" id="speechRequestUtteranceInput" 
-					th:name="SpeechRequest.utterance" th:value="${scenario.task.request.utterance}">
+				<div class="request-div" th:case="'SpeechRequest'"
+					name="SpeechRequest-div" id="SpeechRequest-div">
+					<label for="speechRequestUtteranceInput">Фраза</label> <input
+						type="text" class="form-control" id="speechRequestUtteranceInput"
+						th:name="SpeechRequest.utterance"
+						th:value="${scenario.task.request.utterance}">
 				</div>
-				<div class="request-div" th:case="'BrokerRequest'" name="BrokerRequest-div" id="BrokerRequest-div">
-					<label for="brokerRequestTopicInput">Topic</label>
-					<input type="text" class="form-control" id="brokerRequestTopicInput" 
-					th:name="BrokerRequest.topic" th:value="${scenario.task.request.topic}">
-							
-					<label for="brokerRequestPayloadInput">Payload</label>
-					<input type="text" class="form-control" id="brokerRequestPayloadInput" 
-					th:name="BrokerRequest.payload" th:value="${scenario.task.request.payload}">
-							
-					<label for="brokerRequestClientIdInput">Client ID</label>
-					<input type="text" class="form-control" id="brokerRequestClientIdInput" 
-					th:name="BrokerRequest.clientId" th:value="${scenario.task.request.clientId}">	
-				</div>				
-			</div>
-				
-			<div class="rule-div">
-				<label for="input-group-addon btn btn-primary">Groovy-code, boolean result</label>
-				<textarea class="form-control custom-control" rows="7" style="resize:none" 
-				th:field="${scenario.rule.script}"></textarea> 
-			</div>
-				
-			<div class="actionType-div">
-				<label for="actionType-select">Action type:</label>
-				<select class="form-control" id="actionType-select" name="actionClassName" th:name="actionClassName" readonly>
-					<option th:value="${scenario.task.action.class.name}" 
-					th:utext="${scenario.task.action.class.simpleName}" selected></option>
-				</select>		
+				<div class="request-div" th:case="'BrokerRequest'"
+					name="BrokerRequest-div" id="BrokerRequest-div">
+					<label for="brokerRequestTopicInput">Топик</label> <input
+						type="text" class="form-control" id="brokerRequestTopicInput"
+						th:name="BrokerRequest.topic"
+						th:value="${scenario.task.request.topic}"> <label
+						for="brokerRequestPayloadInput">Содержимое</label> <input
+						type="text" class="form-control" id="brokerRequestPayloadInput"
+						th:name="BrokerRequest.payload"
+						th:value="${scenario.task.request.payload}"> <label
+						for="brokerRequestClientIdInput">ID клиента</label> <input
+						type="text" class="form-control" id="brokerRequestClientIdInput"
+						th:name="BrokerRequest.clientId"
+						th:value="${scenario.task.request.clientId}">
+				</div>
 			</div>
 
-			<div class="actionType-switch" th:switch="${scenario.task.action.class.simpleName}">
-				<div class="action-div" th:case="'StringAction'" name="StringAction-div" id="StringAction-div">
-					<label for="stringActionTextInput">Text</label>
-					<input type="text" class="form-control" id="stringActionTextInput" 
-					th:name="StringAction.text" th:value="${scenario.task.action.text}">
+			<div class="rule-div">
+				<label for="input-group-addon btn btn-primary">Код Groovy,
+					результат типа boolean</label>
+				<textarea class="form-control custom-control" rows="7"
+					style="resize: none" th:field="${scenario.rule.script}"></textarea>
+			</div>
+
+			<div class="actionType-div">
+				<label for="actionType-select">Тип действия:</label> <select
+					class="form-control" id="actionType-select" name="actionClassName"
+					th:name="actionClassName" readonly>
+					<option th:value="${scenario.task.action.class.name}"
+						th:utext="${scenario.task.action.class.simpleName}" selected></option>
+				</select>
+			</div>
+
+			<div class="actionType-switch"
+				th:switch="${scenario.task.action.class.simpleName}">
+				<div class="action-div" th:case="'StringAction'"
+					name="StringAction-div" id="StringAction-div">
+					<label for="stringActionTextInput">Текст</label> <input type="text"
+						class="form-control" id="stringActionTextInput"
+						th:name="StringAction.text"
+						th:value="${scenario.task.action.text}">
 				</div>
-				<div class="action-div" th:case="'PlaybackAction'" name="PlaybackAction-div" id="PlaybackAction-div">
-					<label for="playbackActionFilenameInput">Audio file name</label>
-					<input type="text" class="form-control" id="playbackActionFilenameInput" 
-					th:name="PlaybackAction.filename" th:value="${scenario.task.action.filename}">
-				</div>	
-				<div class="action-div" th:case="'JsonAction'" name="JsonAction-div" id="JsonAction-div">
-					<label for="jsonActionTextInput">Text</label>
-					<input type="text" class="form-control" id="jsonActionTextInput" 
-					th:name="JsonAction.text" th:value="${scenario.task.action.text}">
-				</div>	
-				<div class="action-div" th:case="'BrokerAction'" name="BrokerAction-div" id="BrokerAction-div">
-					<label for="brokerActionTopicInput">Topic</label>
-					<input type="text" class="form-control" id="brokerActionTopicInput" 
-					th:name="BrokerAction.topic" th:value="${scenario.task.action.topic}">
-						
-					<label for="brokerActionPayloadInput">Payload</label>
-					<input type="text" class="form-control" id="brokerActionPayloadInput" 
-					th:name="BrokerAction.payload" th:value="${scenario.task.action.payload}">
-						
-					<label for="brokerActionClientIdInput">Client ID</label>
-					<input type="text" class="form-control" id="brokerActionClientIdInput" 
-					th:name="BrokerAction.clientId" th:value="${scenario.task.action.clientId}">	
+				<div class="action-div" th:case="'PlaybackAction'"
+					name="PlaybackAction-div" id="PlaybackAction-div">
+					<label for="playbackActionFilenameInput">Название аудофайла</label>
+					<input type="text" class="form-control"
+						id="playbackActionFilenameInput" th:name="PlaybackAction.filename"
+						th:value="${scenario.task.action.filename}">
+				</div>
+				<div class="action-div" th:case="'JsonAction'" name="JsonAction-div"
+					id="JsonAction-div">
+					<label for="jsonActionTextInput">Текст</label> <input type="text"
+						class="form-control" id="jsonActionTextInput"
+						th:name="JsonAction.text" th:value="${scenario.task.action.text}">
+				</div>
+				<div class="action-div" th:case="'BrokerAction'"
+					name="BrokerAction-div" id="BrokerAction-div">
+					<label for="brokerActionTopicInput">Топик</label> <input
+						type="text" class="form-control" id="brokerActionTopicInput"
+						th:name="BrokerAction.topic"
+						th:value="${scenario.task.action.topic}"> <label
+						for="brokerActionPayloadInput">Содержимое</label> <input
+						type="text" class="form-control" id="brokerActionPayloadInput"
+						th:name="BrokerAction.payload"
+						th:value="${scenario.task.action.payload}"> <label
+						for="brokerActionClientIdInput">ID клиента</label> <input
+						type="text" class="form-control" id="brokerActionClientIdInput"
+						th:name="BrokerAction.clientId"
+						th:value="${scenario.task.action.clientId}">
 				</div>
 			</div>
 			<div class="form-check enabled-div">
-			  <input class="form-check-input" type="checkbox" th:field="${scenario.enabled}" id="defaultCheck1">	  
-			  <label class="form-check-label" for="defaultCheck1">
-				Enabled
-			  </label>
+				<input class="form-check-input" type="checkbox"
+					th:field="${scenario.enabled}" id="defaultCheck1"> <label
+					class="form-check-label" for="defaultCheck1"> Задействован
+				</label>
 			</div>
 			<div class="groups-div">
-				<label class="form-check-label" for="group-div" th:if="${scenario.groups}">
-					Groups:
-				</label>
-				<input class="form-control" id="group-div" type="text" th:each="group, stat: ${scenario.groups}" 
-				th:name="|groups[${stat.index}]|" th:value="${group}"></input>
-				<label class="form-check-label" for="group-div">
-					Add group:
-				</label>
-				<input class="form-control" id="group-div" type="text" list="groups" th:name="group"></input>
+				<label class="form-check-label" for="group-div"
+					th:if="${scenario.groups}"> Группы: </label> <input
+					class="form-control" id="group-div" type="text"
+					th:each="group, stat: ${scenario.groups}"
+					th:name="|groups[${stat.index}]|" th:value="${group}"></input> <label
+					class="form-check-label" for="group-div"> Добавить группу:
+				</label> <input class="form-control" id="group-div" type="text"
+					list="groups" th:name="group"></input>
 				<datalist id="groups">
-				  <option class="form-control" th:each="group: ${groups}" th:value="${group}" th:utext="${group}"></option>
+					<option class="form-control" th:each="group: ${groups}"
+						th:value="${group}" th:utext="${group}"></option>
 				</datalist>
 				<!--
 				<label class="form-check-label" for="group-div">
@@ -175,11 +194,21 @@
 				-->
 			</div>
 
-			<button class="btn btn-outline-success my-2 my-sm-0" id="request-button" type="submit">Save</button>
+			<button class="btn btn-outline-success my-2 my-sm-0"
+				id="request-button" type="submit">Сохранить</button>
 		</form>
 	</div>
 
-	<script type="text/javascript" src="../static/js/main.js" th:src="@{/js/main.js}"></script>
+	<script type="text/javascript"
+		src="../static/js/jquery-3.5.1.slim.min.js"
+		th:src="@{/js/jquery-3.5.1.slim.min.js}"></script>
+	<script type="text/javascript" src="../static/js/popper.min.js]"
+		th:src="@{/js/popper.min.js}"></script>
+	<script type="text/javascript" src="../static/js/bootstrap.min.js"
+		th:src="@{/js/bootstrap.min.js}"></script>
+
+	<script type="text/javascript" src="../static/js/main.js"
+		th:src="@{/js/main.js}"></script>
 </body>
 
 </html>

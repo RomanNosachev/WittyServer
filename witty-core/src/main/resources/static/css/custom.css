@@ -9,8 +9,25 @@
 	padding: 1em;
 }
 
+.groupButton-div {
+	width: 50%;
+	margin: auto;
+	padding: 1em;
+}
+
 .card-header.enabled {
 	background-color: #adffba;
+}
+
+.table-responsive {
+	width: 80%;
+	margin: auto;
+	overflow: hidden;
+}
+
+.username-input {
+	border: 0px;
+	width: 100%;
 }
 
 .attribute-body {
@@ -26,9 +43,10 @@
 	background: #F9F9F9; 
 	border: 1px solid #E1E1E8; 
 	border-top: 0px;
-	width: 80%;
+	width: 100%;
 	margin: auto; 
 	padding: 8px;
+	text-align: center;
 }
 
 .center-form {
@@ -113,10 +131,6 @@
 .icon {
 	width: 50px;
 	height: 50px;
-}
-
-.table tr.selected {
-	border: 3px dotted green;
 }
 
 .table tr td {

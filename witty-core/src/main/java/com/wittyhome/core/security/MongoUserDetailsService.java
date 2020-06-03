@@ -5,6 +5,10 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,10 +21,13 @@ implements UserService
 {
 	private BaseUserRepository repository;
 	
+	private MongoTemplate template;
+	
 	@Autowired
-	public MongoUserDetailsService(BaseUserRepository repository) 
+	public MongoUserDetailsService(BaseUserRepository repository, MongoTemplate template) 
 	{
 		this.repository = repository;
+		this.template = template;
 	}
 	
 	@Override
@@ -61,5 +68,20 @@ implements UserService
 	public void deleteById(String id) 
 	{
 		repository.deleteById(id);
+	}
+
+	@Override
+	public UserModel update(UserModel user) 
+	{
+		return repository.save(user);
+	}
+
+	@Override
+	public void updateRoles(UserModel user) 
+	{
+		Query query = Query.query(Criteria.where("id").is(user.getId()));
+		Update update = Update.update("roles", user.getRoles());
+		
+		template.updateFirst(query, update, UserModel.class);
 	}
 }

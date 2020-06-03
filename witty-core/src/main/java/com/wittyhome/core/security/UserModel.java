@@ -1,6 +1,10 @@
 package com.wittyhome.core.security;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.validation.constraints.Email;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -15,6 +19,7 @@ implements User
 	@Id
 	private String id;
 	
+	@Email
 	@Indexed(unique = true)
 	private String username;
 	
@@ -81,7 +86,14 @@ implements User
 	{
 		return roles;
 	}
-
+	
+	public List<String> getRoleNames()
+	{
+		return roles.stream()
+				.map(role -> role.getRoleName())
+				.collect(Collectors.toList());
+	}
+	
 	public void setRoles(Set<Role> roles) 
 	{
 		this.roles = roles;
