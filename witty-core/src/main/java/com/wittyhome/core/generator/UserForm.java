@@ -1,5 +1,6 @@
 package com.wittyhome.core.generator;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.wittyhome.core.security.Role;
@@ -10,6 +11,8 @@ public class UserForm
 	private UserModel user;
 	
 	private String passwordReplay;
+		
+	private String roleName = Role.USER.getRoleName();
 	
 	public UserForm() 
 	{
@@ -69,5 +72,26 @@ public class UserForm
 	public boolean checkPasswordReplay()
 	{
 		return user.getPassword().equals(passwordReplay);
+	}
+
+	public String getRoleName()
+	{
+		return roleName;
+	}
+	
+	public void setRoleName(String roleName) 
+	{
+		Role role = Role.getRoleByName(roleName);
+		
+		this.roleName = roleName;
+		
+		Set<Role> roles = new HashSet<Role>();
+		
+		for (int i = 0; i <= role.ordinal(); i++)
+		{
+			roles.add(Role.values()[i]);
+		}
+		
+		user.setRoles(roles);
 	}
 }

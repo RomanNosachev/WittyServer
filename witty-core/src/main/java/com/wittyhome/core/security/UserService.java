@@ -11,6 +11,9 @@ extends UserDetailsService
 	
 	public List<UserModel> findAll();
 	
+	public UserModel update(UserModel user);
+	public void updateRoles(UserModel user);
+	
 	public void delete(UserModel user);
 	public void deleteById(String id);
 }

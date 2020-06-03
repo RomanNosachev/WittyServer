@@ -71,6 +71,8 @@ extends WebSecurityConfigurerAdapter
                     .antMatchers("/deleteGroup/**").hasRole("ADMIN")
                     .antMatchers("/leaveGroup/**").hasRole("ADMIN")
                     
+                    .antMatchers("/users/**").hasRole("SUPERADMIN")
+                    
                     .antMatchers("/", "index", "/resources/**").permitAll()
                     .antMatchers("/css/**", "/js/**", "/img/**").permitAll()
                     
