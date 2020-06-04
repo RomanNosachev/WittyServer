@@ -36,7 +36,12 @@
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="./addScenario.html"
-								th:href="@{/addScenario}">Добавить сценарий</a>
+								th:href="@{/addScenario}">
+								<svg class="bi bi-plus" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								  <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"/>
+								  <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"/>
+								</svg>
+							Добавить сценарий</a>
 						</div>
 						<a class="btn btn-link nav-link" href="./group.html"
 							th:href="@{/group}">Группы</a> <a class="btn btn-link nav-link"
@@ -55,9 +60,15 @@
 			<div class="user btn-group form-inline my-2 my-lg-0"
 				th:if="${session.username} and ${session.username} != 'anonymousUser'">
 				<input class="form-control" type="text"
-					th:value="${session.username}" readonly> <a
-					class="btn btn-primary" href="./logout.html" th:href="@{/logout}"
-					role="button">Выход</a>
+					th:value="${session.username}" readonly> 
+					<a class="btn btn-primary" href="./logout.html" th:href="@{/logout}"
+					role="button">
+						<svg class="bi bi-box-arrow-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						  <path fill-rule="evenodd" d="M11.646 11.354a.5.5 0 0 1 0-.708L14.293 8l-2.647-2.646a.5.5 0 0 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0z"/>
+						  <path fill-rule="evenodd" d="M4.5 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z"/>
+						  <path fill-rule="evenodd" d="M2 13.5A1.5 1.5 0 0 1 .5 12V4A1.5 1.5 0 0 1 2 2.5h7A1.5 1.5 0 0 1 10.5 4v1.5a.5.5 0 0 1-1 0V4a.5.5 0 0 0-.5-.5H2a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-1.5a.5.5 0 0 1 1 0V12A1.5 1.5 0 0 1 9 13.5H2z"/>
+						</svg>
+					Выход</a>
 			</div>
 		</div>
 	</nav>
@@ -111,9 +122,9 @@
 			</div>
 
 			<div class="rule-div">
-				<label for="input-group-addon btn btn-primary">Код Groovy,
+				<label for="ruleInput">Код Groovy,
 					результат типа boolean</label>
-				<textarea class="form-control custom-control" rows="7"
+				<textarea id="ruleInput" class="form-control custom-control" rows="7"
 					style="resize: none" th:field="${scenario.rule.script}"></textarea>
 			</div>
 
@@ -167,16 +178,16 @@
 			<div class="form-check enabled-div">
 				<input class="form-check-input" type="checkbox"
 					th:field="${scenario.enabled}" id="defaultCheck1"> <label
-					class="form-check-label" for="defaultCheck1"> Задействован
+					class="form-check-label" for="defaultCheck1"> Активен
 				</label>
 			</div>
 			<div class="groups-div">
 				<label class="form-check-label" for="group-div"
-					th:if="${scenario.groups}"> Группы: </label> <input
+					th:if="${scenario.groups}"> Группы </label> <input
 					class="form-control" id="group-div" type="text"
 					th:each="group, stat: ${scenario.groups}"
 					th:name="|groups[${stat.index}]|" th:value="${group}"></input> <label
-					class="form-check-label" for="group-div"> Добавить группу:
+					class="form-check-label" for="group-div"> Добавить группу
 				</label> <input class="form-control" id="group-div" type="text"
 					list="groups" th:name="group"></input>
 				<datalist id="groups">
@@ -195,7 +206,8 @@
 			</div>
 
 			<button class="btn btn-outline-success my-2 my-sm-0"
-				id="request-button" type="submit">Сохранить</button>
+				id="request-button" type="submit">
+			Сохранить</button>
 		</form>
 	</div>
 

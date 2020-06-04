@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>WittyHome | Group</title>
+<title>WittyHome | Группы</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
 
@@ -36,7 +36,12 @@
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="./addScenario.html"
-								th:href="@{/addScenario}">Добавить сценарий</a>
+								th:href="@{/addScenario}">
+								<svg class="bi bi-plus" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								  <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"/>
+								  <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"/>
+								</svg>
+							Добавить сценарий</a>
 						</div>
 						<a class="btn btn-link nav-link active" href="#">Группы</a> <a
 							class="btn btn-link nav-link" th:if="${session.superadmin}"
@@ -54,14 +59,20 @@
 			<div class="user btn-group form-inline my-2 my-lg-0"
 				th:if="${session.username} and ${session.username} != 'anonymousUser'">
 				<input class="form-control" type="text"
-					th:value="${session.username}" readonly> <a
-					class="btn btn-primary" href="./logout.html" th:href="@{/logout}"
-					role="button">Выход</a>
+					th:value="${session.username}" readonly> 
+					<a class="btn btn-primary" href="./logout.html" th:href="@{/logout}"
+					role="button">
+						<svg class="bi bi-box-arrow-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						  <path fill-rule="evenodd" d="M11.646 11.354a.5.5 0 0 1 0-.708L14.293 8l-2.647-2.646a.5.5 0 0 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0z"/>
+						  <path fill-rule="evenodd" d="M4.5 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z"/>
+						  <path fill-rule="evenodd" d="M2 13.5A1.5 1.5 0 0 1 .5 12V4A1.5 1.5 0 0 1 2 2.5h7A1.5 1.5 0 0 1 10.5 4v1.5a.5.5 0 0 1-1 0V4a.5.5 0 0 0-.5-.5H2a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-1.5a.5.5 0 0 1 1 0V12A1.5 1.5 0 0 1 9 13.5H2z"/>
+						</svg>
+					Выйти</a>
 			</div>
 		</div>
 	</nav>
 
-	<div class="container">
+	<div class="container group-div">
 		<div class="row">
 			<div class="col-md-4" th:each="group: ${groups}">
 				<div class="card mb-4 box-shadow">
@@ -71,8 +82,13 @@
 						<p class="card-text" th:text="${group.total}"></p>
 						<div class="d-flex justify-content-between align-items-center">
 							<div class="btn-group">
-								<a class="viewGroup-button btn btn-sm btn-outline-secondary"
-									th:href="@{/group/{id}(id=${group.id})}">Подробнее</a>
+								<a class="viewGroup-button card-button btn btn-sm btn-outline-secondary"
+									th:href="@{/group/{id}(id=${group.id})}">
+									<svg class="bi bi-card-text" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									  <path fill-rule="evenodd" d="M14.5 3h-13a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
+									  <path fill-rule="evenodd" d="M3 5.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 8zm0 2.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"/>
+									</svg>
+								</a>
 							</div>
 						</div>
 					</div>
