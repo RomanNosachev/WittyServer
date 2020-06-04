@@ -36,7 +36,12 @@
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 							<a class="dropdown-item" href="./addScenario.html"
-								th:href="@{/addScenario}">Добавить сценарий</a>
+								th:href="@{/addScenario}">
+								<svg class="bi bi-plus" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								  <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"/>
+								  <path fill-rule="evenodd" d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"/>
+								</svg>
+							Добавить сценарий</a>
 						</div>
 						<a class="btn btn-link nav-link" href="./group.html"
 							th:href="@{/group}">Группы</a> <a class="btn btn-link nav-link"
@@ -55,9 +60,15 @@
 			<div class="user btn-group form-inline my-2 my-lg-0"
 				th:if="${session.username} and ${session.username} != 'anonymousUser'">
 				<input class="form-control" type="text"
-					th:value="${session.username}" readonly> <a
-					class="btn btn-primary" href="./logout.html" th:href="@{/logout}"
-					role="button">Выйти</a>
+					th:value="${session.username}" readonly> 
+					<a class="btn btn-primary" href="./logout.html" th:href="@{/logout}"
+					role="button">
+						<svg class="bi bi-box-arrow-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						  <path fill-rule="evenodd" d="M11.646 11.354a.5.5 0 0 1 0-.708L14.293 8l-2.647-2.646a.5.5 0 0 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0z"/>
+						  <path fill-rule="evenodd" d="M4.5 8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z"/>
+						  <path fill-rule="evenodd" d="M2 13.5A1.5 1.5 0 0 1 .5 12V4A1.5 1.5 0 0 1 2 2.5h7A1.5 1.5 0 0 1 10.5 4v1.5a.5.5 0 0 1-1 0V4a.5.5 0 0 0-.5-.5H2a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-1.5a.5.5 0 0 1 1 0V12A1.5 1.5 0 0 1 9 13.5H2z"/>
+						</svg>
+					Выйти</a>
 			</div>
 		</div>
 	</nav>
@@ -68,7 +79,12 @@
 				<div class="panel-heading">
 					<h4 class="panel-title">
 						<a data-toggle="collapse" data-parent="#accordion"
-							href="#collapseOne">Фильтры</a>
+							href="#collapseOne">
+							<svg class="bi bi-funnel-fill" width="0.8em" height="0.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							  <path d="M2 3.5v-2h12v2l-4.5 5v5l-3 1v-6L2 3.5z"/>
+							  <path fill-rule="evenodd" d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5v-2zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2h-11z"/>
+							</svg>
+						Фильтры</a>
 					</h4>
 				</div>
 				<div id="collapseOne" class="panel-collapse collapse in">
@@ -96,25 +112,43 @@
 							<div class="d-flex justify-content-between align-items-center">
 								<div class="btn-group">
 									<a th:if="${session.admin}"
-										class="editScenario-button btn btn-sm btn-outline-secondary"
-										th:href="@{/editScenario/{id}(id=${scenario.id})}">Редактировать</a>
+										class="editScenario-button btn card-button btn-sm btn-outline-secondary"
+										th:href="@{/editScenario/{id}(id=${scenario.id})}">
+											<svg class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+											  <path fill-rule="evenodd" d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z"/>
+											  <path fill-rule="evenodd" d="M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z"/>
+											</svg>
+										</a>
 									<form th:if="${scenario.enabled}"
 										th:action="@{/disableScenario}" method="post">
 										<input type="hidden" name="id" th:value="${scenario.id}"></input>
 										<button
-											class="disableScenario-button btn btn-sm btn-outline-secondary">Выключить</button>
+											class="disableScenario-button btn card-button btn-sm btn-outline-secondary">
+											<svg class="bi bi-toggle-on" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+											  <path fill-rule="evenodd" d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10H5zm6 9a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/>
+											</svg>
+										</button>
 									</form>
 									<form th:unless="${scenario.enabled}"
 										th:action="@{/enableScenario}" method="post">
 										<input type="hidden" name="id" th:value="${scenario.id}"></input>
 										<button
-											class="enableScenario-button btn btn-sm btn-outline-secondary">Задействовать</button>
+											class="enableScenario-button btn card-button btn-sm btn-outline-secondary">
+											<svg class="bi bi-toggle-off" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+											  <path fill-rule="evenodd" d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
+											</svg>
+										</button>
 									</form>
 									<form th:if="${session.admin}" th:action="@{/deleteScenario}"
 										method="post">
 										<input type="hidden" name="id" th:value="${scenario.id}"></input>
 										<button
-											class="deleteScenario-button btn btn-sm btn-outline-secondary">Удалить</button>
+											class="deleteScenario-button btn card-button btn-sm btn-outline-secondary">
+											<svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+											  <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+											  <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+											</svg>
+										</button>
 									</form>
 
 									<!--
@@ -136,12 +170,21 @@
 				<li class="page-item"
 					th:classappend="${scenarios.number + 1 > 1} ? enabled : disabled">
 					<a class="page-link"
-					th:href="@{/scenario/(size=${scenarios.size}, page='1')}">Первая</a>
+					th:href="@{/scenario/(size=${scenarios.size}, page='1')}">
+						<svg class="bi bi-chevron-double-left" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						  <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+						  <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+						</svg>
+					</a>
 				</li>
 				<li class="page-item"
 					th:classappend="${scenarios.number + 1 > 1} ? enabled : disabled">
 					<a class="page-link"
-					th:href="@{/scenario/(size=${scenarios.size}, page=${scenarios.number})}">Предыдущая</a>
+					th:href="@{/scenario/(size=${scenarios.size}, page=${scenarios.number})}">
+						<svg class="bi bi-chevron-left" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						  <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+						</svg>
+					</a>
 				</li>
 				<li class="page-item active"><a class="page-link"
 					th:href="@{/scenario/(size=${scenarios.size}, page=${scenarios.number})}"
@@ -149,12 +192,21 @@
 				<li class="page-item"
 					th:classappend="${scenarios.number + 1 < pageNumber} ? enabled : disabled">
 					<a class="page-link"
-					th:href="@{/scenario/(size=${scenarios.size}, page=${scenarios.number + 2})}">Следующая</a>
+					th:href="@{/scenario/(size=${scenarios.size}, page=${scenarios.number + 2})}">
+						<svg class="bi bi-chevron-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+						</svg>
+					</a>
 				</li>
 				<li class="page-item"
 					th:classappend="${scenarios.number + 1 < pageNumber} ? enabled : disabled">
 					<a class="page-link"
-					th:href="@{/scenario/(size=${scenarios.size}, page=${pageNumber})}">Последняя</a>
+					th:href="@{/scenario/(size=${scenarios.size}, page=${pageNumber})}">
+						<svg class="bi bi-chevron-double-right" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  							<path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+  							<path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+						</svg>
+					</a>
 				</li>
 			</ul>
 		</nav>

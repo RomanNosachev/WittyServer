@@ -9,14 +9,66 @@
 	padding: 1em;
 }
 
-.groupButton-div {
-	width: 50%;
-	margin: auto;
+.page-link {
+	height: 2.6em;
+}
+
+.card-button {
+	width: 2.6em;
+	height: 2.6em;
+	text-align: center;
+}
+
+.card-button svg {
+	width: 1.5em;
+	height: 1.5em;
+}
+
+.disableScenario-button {
+	width: 3.1em;
+}
+
+.disableScenario-button svg {
+	width: 2em;
+	height: 2em;
+}
+
+.enableScenario-button {
+	width: 3.1em;
+}
+
+.enableScenario-button svg {
+	width: 2em;
+	height: 2em;
+}
+
+.form-check-label {
+	margin-bottom: 0.5em;
+}
+
+.save-button {
+	margin-top: 0.5em;
+}
+
+.group-div {
 	padding: 1em;
 }
 
+.group-button {
+}
+
+.groupButton-div {
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+	display: block;
+	padding: 0.5em;
+	background: #F9F9F9; 
+	border: 1px solid #E1E1E8; 
+}
+
 .card-header.enabled {
-	background-color: #adffba;
+	background-color: #98ff98;
 }
 
 .table-responsive {
