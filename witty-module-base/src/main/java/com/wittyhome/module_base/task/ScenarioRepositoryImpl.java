@@ -7,11 +7,14 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.unwi
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.data.repository.support.PageableExecutionUtils;
 
 public class ScenarioRepositoryImpl 
 implements ScenarioRepository
@@ -86,5 +89,29 @@ implements ScenarioRepository
 		Update update = new Update().addToSet("groups", group);
 
 		template.updateFirst(query, update, Scenario.class);
+	}
+
+	@Override
+	public Page<Scenario> findByEnabledFalse(Pageable pageable) 
+	{
+		Query query = new Query(Criteria.where("enabled").ne(Boolean.TRUE))
+				.with(pageable);
+		
+		List<Scenario> list = template.find(query, Scenario.class);
+		
+		return PageableExecutionUtils.getPage(list, pageable, 
+				() -> template.count(Query.of(query).limit(-1).skip(-1), Scenario.class));
+	}
+
+	@Override
+	public Page<Scenario> findAllWithScript(Pageable pageable) 
+	{
+		Query query = new Query(Criteria.where("rule.script").exists(true).ne(""))
+				.with(pageable);
+		
+		List<Scenario> list = template.find(query, Scenario.class);
+		
+		return PageableExecutionUtils.getPage(list, pageable, 
+				() -> template.count(Query.of(query).limit(-1).skip(-1), Scenario.class));
 	}
 }

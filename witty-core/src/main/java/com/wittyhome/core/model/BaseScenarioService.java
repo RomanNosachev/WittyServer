@@ -10,6 +10,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.wittyhome.core.task.BaseScenarioRepository;
+import com.wittyhome.module_base.command.Action;
+import com.wittyhome.module_base.generator.Request;
 import com.wittyhome.module_base.model.ScenarioService;
 import com.wittyhome.module_base.task.GroupDetails;
 import com.wittyhome.module_base.task.Scenario;
@@ -18,7 +20,7 @@ import com.wittyhome.module_base.task.Scenario;
 public class BaseScenarioService 
 implements ScenarioService
 {
-	private static int DEFAULT_PAGE_SIZE = 10;
+	private static int DEFAULT_PAGE_SIZE = 9;
 	
 	private BaseScenarioRepository repository;
 	
@@ -174,5 +176,55 @@ implements ScenarioService
 	public void addGroupById(String id, String group) 
 	{
 		repository.addGroupById(id, group);
+	}
+
+	@Override
+	public Page<Scenario> findAllDisabled(int page) 
+	{
+		return findAllDisabled(page, DEFAULT_PAGE_SIZE);
+	}
+
+	@Override
+	public Page<Scenario> findAllDisabled(int page, int size) 
+	{
+		Pageable pageable = PageRequest.of(page, size);
+		
+		return findAllDisabled(pageable);
+	}
+
+	@Override
+	public Page<Scenario> findAllDisabled(Pageable pageable) 
+	{
+		return repository.findByEnabledFalse(pageable);
+	}
+
+	@Override
+	public Page<Scenario> findAllByRequestTypeName(String requestClassName, Pageable pageable) 
+	{
+		return repository.findByRequestClass(requestClassName, pageable);
+	}
+
+	@Override
+	public Page<Scenario> findAllByRequestType(Class<? extends Request> requestClass, Pageable pageable) 
+	{
+		return repository.findByRequestClass(requestClass.getName(), pageable);
+	}
+
+	@Override
+	public Page<Scenario> findAllByActionTypeName(String actionClassName, Pageable pageable) 
+	{
+		return repository.findByActionClass(actionClassName, pageable);
+	}
+
+	@Override
+	public Page<Scenario> findAllByActionType(Class<? extends Action> actionClass, Pageable pageable) 
+	{
+		return repository.findByActionClass(actionClass.getName(), pageable);
+	}
+
+	@Override
+	public Page<Scenario> findAllWithScript(Pageable pageable) 
+	{
+		return repository.findAllWithScript(pageable);
 	}
 }

@@ -6,6 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import com.wittyhome.module_base.command.Action;
+import com.wittyhome.module_base.generator.Request;
 import com.wittyhome.module_base.task.GroupDetails;
 import com.wittyhome.module_base.task.Scenario;
 
@@ -26,6 +28,18 @@ public interface ScenarioService
 	public Page<Scenario> findAllEnabled(int page);
 	public Page<Scenario> findAllEnabled(int page, int size);
 	public Page<Scenario> findAllEnabled(Pageable pageable);
+	
+	public Page<Scenario> findAllDisabled(int page);
+	public Page<Scenario> findAllDisabled(int page, int size);
+	public Page<Scenario> findAllDisabled(Pageable pageable);
+	
+	public Page<Scenario> findAllByRequestTypeName(String requestClassName, Pageable pageable);
+	public Page<Scenario> findAllByRequestType(Class<? extends Request> requestClass, Pageable pageable);
+
+	public Page<Scenario> findAllByActionTypeName(String actionClassName, Pageable pageable);
+	public Page<Scenario> findAllByActionType(Class<? extends Action> actionClass, Pageable pageable);
+	
+	public Page<Scenario> findAllWithScript(Pageable pageable);
 	
 	public List<Scenario> findAllByGroup(String group);
 	

@@ -1,3 +1,7 @@
+body {
+	background-color: #f9f9fa;
+}
+
 .card-body pre {
 	background-color: #f7f8fa;
 	border: 1px solid #e4e6eb;
@@ -13,10 +17,30 @@
 	height: 2.6em;
 }
 
+.filter-input {
+	background-color: white;
+}
+
 .card-button {
 	width: 2.6em;
 	height: 2.6em;
 	text-align: center;
+}
+
+.editScenario-button svg {
+	color: #6c757d;
+}
+
+.editScenario-button:hover svg {
+	color: white;
+}
+
+.viewGroup-button svg {
+	color: #6c757d;
+}
+
+.viewGroup-button:hover svg {
+	color: white;
 }
 
 .card-button svg {
@@ -46,6 +70,89 @@
 	margin-bottom: 0.5em;
 }
 
+.edit-button {
+	margin-top: 0.5em;
+}
+
+.form-check {
+	margin-top: 1em;
+}
+
+.simpleFilter-div form input {
+	width: 10em;
+}
+
+.typeFilter-div {
+	width: 10em;
+	padding: 0px;
+	margin: 0px;
+}
+
+.typeFilter-div input {
+	width: 10em;
+}
+
+.typeFilter-div select {
+	width: 10.5em;
+	height: 2em;
+	padding-top: 2px;
+}
+
+.enabled-div {
+	margin-top: 1.5em;
+}
+
+.enabled-input {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+	margin: 10px 0 0 20px;
+}
+
+.enabled-input + label {
+	position: relative;
+	padding: 0 0 0 30px;
+	cursor: pointer;
+}
+
+.enabled-input + label:before {
+	content: '';
+	position: absolute;
+	top: -3px;
+	left: 0;
+	width: 22px;
+	height: 22px;
+	border: 1px solid #CDD1DA;
+	border-radius: 50%;
+	background: #FFF;
+}
+
+.enabled-input + label:after {
+	content: '';
+	position: absolute;
+	top: 0px;
+	left: 3px;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background: #6c757d;
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.5);
+	opacity: 0;
+	transition: .2s;
+}
+
+.enabled-input:checked + label:after {
+	opacity: 1;
+}
+
+.enabled-input:focus + label:before {
+	box-shadow: 0 0 0 1px rgba(0,0,0,.7);
+}
+
+.addGroup-input {
+	margin-bottom: 0.5em;
+}
+
 .save-button {
 	margin-top: 0.5em;
 }
@@ -57,18 +164,12 @@
 .group-button {
 }
 
-.groupButton-div {
-	width: 100%;
-	margin: 0 auto;
-	text-align: center;
-	display: block;
-	padding: 0.5em;
-	background: #F9F9F9; 
-	border: 1px solid #E1E1E8; 
-}
-
 .card-header.enabled {
 	background-color: #98ff98;
+}
+
+.card-header {
+	 background-color: rgba(0,0,0,.07);
 }
 
 .table-responsive {
@@ -91,9 +192,33 @@
 	padding: 1em;
 }
 
+.groupButton-div {
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+	display: block;
+	padding: 0.5em;
+	background: rgba(0,0,0,.1);
+	color: #6c757d;
+	border: 1px solid rgba(0,0,0,.2); 
+}
+
+.groupButton-div button {
+	background: white;
+}
+
+.panel-title a {
+	color: #6c757d;
+}
+
+
+#accordion button {
+	backfround: white;
+}
+
 #accordion {
-	background: #F9F9F9; 
-	border: 1px solid #E1E1E8; 
+	background: rgba(0,0,0,.1);
+	border: 1px solid rgba(0,0,0,.2); 
 	border-top: 0px;
 	width: 100%;
 	margin: auto; 
@@ -151,10 +276,6 @@
 
 .editScenario-div .alert {
 	text-align: center;
-}
-
-.panel-title a {
-	color: #8f8f8f;
 }
 
 .tab-content {

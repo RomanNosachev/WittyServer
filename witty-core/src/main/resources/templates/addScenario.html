@@ -106,6 +106,13 @@
 					th:name="SpeechRequest.utterance"
 					th:value="${SpeechRequest.utterance}">
 			</div>
+			<div class="request-div" name="TimeRequest-div"
+				id="TimeRequest-div">
+				<label for="timeRequestTimeStringInput">Время</label> <input
+					type="text" class="form-control" id="timeRequestTimeStringInput"
+					th:name="TimeRequest.timeString"
+					th:value="${TimeRequest.timeString}">
+			</div>
 			<div class="request-div" name="BrokerRequest-div"
 				id="BrokerRequest-div">
 				<label for="brokerRequestTopicInput">Топик</label> <input

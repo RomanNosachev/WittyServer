@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,6 +43,8 @@ implements Generator<StringRequest>
 {
 	private static Logger LOG = LoggerFactory.getLogger(ScenarioController.class);
 		
+	private static int DEFAULT_PAGE_SIZE = 9;
+	
 	private Dispatcher dispatcher;
 	
 	private ScenarioService service;
@@ -82,10 +86,132 @@ implements Generator<StringRequest>
 			Model model) {
 		
 		int currentPage = page.orElse(1);
-		int pageSize = size.orElse(10);
+		int pageSize = size.orElse(DEFAULT_PAGE_SIZE);
 		
 		Page<Scenario> resultPage = service.findAll(currentPage - 1, pageSize);
 				
+		model.addAttribute("requestClasses", requestFactory.getAllRequestClasses());
+		model.addAttribute("actionClasses", actionFactory.getAllActionClasses());
+		
+		model.addAttribute("scenarios", resultPage);
+		model.addAttribute("pageNumber", resultPage.getTotalPages());
+		
+		return "scenario";
+	}
+	
+	@GetMapping("/enabledOnly")
+	public String filterEnabledOnly(@RequestParam("page") Optional<Integer> page,
+			@RequestParam("size") Optional<Integer> size,
+			Model model) {
+		
+		int currentPage = page.orElse(1);
+		int pageSize = size.orElse(DEFAULT_PAGE_SIZE);
+		
+		Page<Scenario> resultPage = service.findAllEnabled(currentPage - 1, pageSize);
+		
+		model.addAttribute("requestClasses", requestFactory.getAllRequestClasses());
+		model.addAttribute("actionClasses", actionFactory.getAllActionClasses());
+		
+		model.addAttribute("scenarios", resultPage);
+		model.addAttribute("pageNumber", resultPage.getTotalPages());
+		
+		return "scenario";
+	}
+	
+	@GetMapping("/disabledOnly")
+	public String filterDisabledOnly(@RequestParam("page") Optional<Integer> page,
+			@RequestParam("size") Optional<Integer> size,
+			Model model) {
+		
+		int currentPage = page.orElse(1);
+		int pageSize = size.orElse(DEFAULT_PAGE_SIZE);
+		
+		Page<Scenario> resultPage = service.findAllDisabled(currentPage - 1, pageSize);
+		
+		model.addAttribute("requestClasses", requestFactory.getAllRequestClasses());
+		model.addAttribute("actionClasses", actionFactory.getAllActionClasses());
+		
+		model.addAttribute("scenarios", resultPage);
+		model.addAttribute("pageNumber", resultPage.getTotalPages());
+		
+		return "scenario";
+	}
+	
+	@GetMapping("/withRequestType")
+	public String filterWithRequestType(@RequestParam(name = "requestClassName", required = true) String requestClassName,
+			@RequestParam("page") Optional<Integer> page,
+			@RequestParam("size") Optional<Integer> size,
+			Model model) {
+		
+		int currentPage = page.orElse(1);
+		int pageSize = size.orElse(DEFAULT_PAGE_SIZE);
+		
+		model.addAttribute("requestClasses", requestFactory.getAllRequestClasses());
+		model.addAttribute("actionClasses", actionFactory.getAllActionClasses());
+		
+		if (!requestClassName.isBlank())
+		{
+			Pageable pageable = PageRequest.of(currentPage - 1, pageSize);
+			
+			Page<Scenario> resultPage = service.findAllByRequestTypeName(requestClassName, pageable);
+			
+			model.addAttribute("scenarios", resultPage);
+			model.addAttribute("pageNumber", resultPage.getTotalPages());
+		}
+		else
+		{
+			model.addAttribute("scenarios", Page.empty());
+			model.addAttribute("pageNumber", 0);
+		}
+
+		return "scenario";
+	}
+	
+	@GetMapping("/withActionType")
+	public String filterWithActionType(@RequestParam(name = "actionClassName", required = true) String actionClassName,
+			@RequestParam("page") Optional<Integer> page,
+			@RequestParam("size") Optional<Integer> size,
+			Model model) {
+		
+		int currentPage = page.orElse(1);
+		int pageSize = size.orElse(DEFAULT_PAGE_SIZE);
+		
+		model.addAttribute("requestClasses", requestFactory.getAllRequestClasses());
+		model.addAttribute("actionClasses", actionFactory.getAllActionClasses());
+		
+		if (!actionClassName.isBlank())
+		{
+			Pageable pageable = PageRequest.of(currentPage - 1, pageSize);
+			
+			Page<Scenario> resultPage = service.findAllByActionTypeName(actionClassName, pageable);
+			
+			model.addAttribute("scenarios", resultPage);
+			model.addAttribute("pageNumber", resultPage.getTotalPages());
+		}
+		else
+		{
+			model.addAttribute("scenarios", Page.empty());
+			model.addAttribute("pageNumber", 0);
+		}
+
+		return "scenario";
+	}
+	
+	@GetMapping("/withScript")
+	public String filterWithScript(@RequestParam("page") Optional<Integer> page,
+			@RequestParam("size") Optional<Integer> size,
+			Model model) {
+		
+		int currentPage = page.orElse(1);
+		int pageSize = size.orElse(DEFAULT_PAGE_SIZE);
+		
+		model.addAttribute("requestClasses", requestFactory.getAllRequestClasses());
+		model.addAttribute("actionClasses", actionFactory.getAllActionClasses());
+		
+		Pageable pageable = PageRequest.of(currentPage - 1, pageSize);
+		
+		Page<Scenario> resultPage = service.findAllWithScript(pageable);
+		
 		model.addAttribute("scenarios", resultPage);
 		model.addAttribute("pageNumber", resultPage.getTotalPages());
 		
