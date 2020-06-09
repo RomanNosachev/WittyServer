@@ -104,6 +104,13 @@
 						th:name="SpeechRequest.utterance"
 						th:value="${scenario.task.request.utterance}">
 				</div>
+				<div class="request-div" th:case="'TimeRequest'" name="TimeRequest-div"
+					id="TimeRequest-div">
+					<label for="timeRequestTimeStringInput">Время</label> <input
+						type="text" class="form-control" id="timeRequestTimeStringInput"
+						th:name="TimeRequest.timeString"
+						th:value="${scenario.task.request.timeString}">
+				</div>
 				<div class="request-div" th:case="'BrokerRequest'"
 					name="BrokerRequest-div" id="BrokerRequest-div">
 					<label for="brokerRequestTopicInput">Топик</label> <input
@@ -175,37 +182,33 @@
 						th:value="${scenario.task.action.clientId}">
 				</div>
 			</div>
-			<div class="form-check enabled-div">
-				<input class="form-check-input" type="checkbox"
-					th:field="${scenario.enabled}" id="defaultCheck1"> <label
-					class="form-check-label" for="defaultCheck1"> Активен
+			<div class="enabled-div">
+				<input class="enabled-input" type="checkbox"
+					th:field="${scenario.enabled}" id="enabledCheck"> 
+				<label class="" for="enabledCheck"> Активен
 				</label>
 			</div>
 			<div class="groups-div">
 				<label class="form-check-label" for="group-div"
-					th:if="${scenario.groups}"> Группы </label> <input
+					th:if="${scenario.groups}"> Группы </label> 
+				<input
 					class="form-control" id="group-div" type="text"
 					th:each="group, stat: ${scenario.groups}"
-					th:name="|groups[${stat.index}]|" th:value="${group}"></input> <label
+					th:name="|groups[${stat.index}]|" th:value="${group}">
+				</input> 
+				<label
 					class="form-check-label" for="group-div"> Добавить группу
-				</label> <input class="form-control" id="group-div" type="text"
-					list="groups" th:name="group"></input>
+				</label> 
+				<input class="addGroup-input form-control" id="group-div" type="text"
+					list="groups" th:name="group">
+				</input>
 				<datalist id="groups">
 					<option class="form-control" th:each="group: ${groups}"
 						th:value="${group}" th:utext="${group}"></option>
 				</datalist>
-				<!--
-				<label class="form-check-label" for="group-div">
-					Add group:
-				</label>
-				<input class="form-control" type="text" list="groups" name="group"/>
-				<datalist id="groups">
-				  <option class="form-control" th:each="group: ${groups}" th:value="${group}" th:utext="${group}"></option>
-				</datalist>
-				-->
 			</div>
 
-			<button class="btn btn-outline-success my-2 my-sm-0"
+			<button class="edit-button btn btn-outline-success my-2 my-sm-0"
 				id="request-button" type="submit">
 			Сохранить</button>
 		</form>

@@ -1,23 +1,45 @@
 package com.wittyhome.core.generator;
 
+import java.util.List;
+import java.util.function.Function;
+
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 
 @Configuration
 public class WebMvcConfiguration 
-implements WebMvcConfigurer
 {
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) 
+	@Autowired
+	SpringTemplateEngine templateEngine;
+	
+	@PostConstruct
+	public void templateEngineConfiguration() 
 	{
-		 registry.addResourceHandler("/jquery/**") //
-         	.addResourceLocations("classpath:/META-INF/resources/webjars/jquery/3.4.1/");
+		templateEngine.setRenderHiddenMarkersBeforeCheckboxes(true);
+	}
+	
+	@Bean
+	public Function<List<String>, String> currentUrlWithoutParamList() 
+	{		
+	    return params -> {	 	    	
+	    	var builder = ServletUriComponentsBuilder.fromCurrentRequest();
+	    	
+	    	params.forEach(param -> {
+	    		builder.replaceQueryParam(param);
+	    	});
 
-		 registry.addResourceHandler("/popper/**") //
-		 	.addResourceLocations("classpath:/META-INF/resources/webjars/popper.js/2.0.2/umd/");
-		
-		 registry.addResourceHandler("/bootstrap/**") //
-		 	.addResourceLocations("classpath:/META-INF/resources/webjars/bootstrap/4.1.1-1/");
+			return builder.toUriString();
+	    };
+	}
+	
+	@Bean
+	public Function<String, String> currentUrlWithoutParam() 
+	{
+		return param -> ServletUriComponentsBuilder.fromCurrentRequest().replaceQueryParam(param).toUriString();
 	}
 }

@@ -15,10 +15,10 @@ implements TypedAttributeRegistry<T>
 	{
 		registry = new HashMap<>();
 		
-		StringBuilder builder = new StringBuilder(getPrefix());
-		builder.append(".");
-		
 		suppliers.forEach(supplier -> {
+			StringBuilder builder = new StringBuilder(getPrefix());
+			builder.append(".");
+			
 			builder.append(supplier.getAttributeName());
 			
 			registry.put(builder.toString(), supplier);
